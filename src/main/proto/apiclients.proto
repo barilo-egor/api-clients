@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option java_package = "tgb.cryptoexchange.grpc.generated";
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+service ClientsService {
+  rpc CreateClient (CreateClientGrpc) returns (CreateClientResponseGrpc);
+  rpc GetClientByApiKey (GetClientByApiKeyGrpc) returns (GetClientByApiKeyResponseGrpc);
+}
+
+service WithdrawalRequestService {
+  rpc CreateWithdrawalRequest (CreateWithdrawalRequestGrpc) returns(google.protobuf.Empty);
+  rpc UpdateWithdrawalRequest (UpdateWithdrawalRequestGrpc) returns(google.protobuf.Empty);
+}
+
+service SecurityService {
+  rpc GetPublicKey (google.protobuf.Empty) returns (GetPublicJWTKeyResponseGrpc);
+}
+
+message CreateClientGrpc {
+  string username = 1;
+  string password = 2;
+}
+
+message CreateClientResponseGrpc {
+  string username = 1;
+  string api_key = 2;
+  string secret = 3;
+  google.protobuf.Timestamp registered_at = 4;
+  string status = 5;
+  string callback_url = 6;
+}
+
+message GetClientByApiKeyGrpc {
+  string api_key = 1;
+}
+
+message GetClientByApiKeyResponseGrpc {
+  string username = 1;
+  string secret = 2;
+  string status = 3;
+}
+
+message CreateWithdrawalRequestGrpc{
+  int64 client_id = 1;
+  int32 amount = 2;
+  string wallet = 3;
+  google.protobuf.StringValue comment = 4;
+}
+
+message UpdateWithdrawalRequestGrpc{
+  google.protobuf.Int64Value id = 1;
+  google.protobuf.StringValue wallet = 2;
+  google.protobuf.StringValue comment = 3;
+}
+
+message GetPublicJWTKeyResponseGrpc{
+  string jwt_key = 1;
+}
