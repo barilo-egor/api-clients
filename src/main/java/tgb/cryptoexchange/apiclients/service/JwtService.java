@@ -1,0 +1,65 @@
+package tgb.cryptoexchange.apiclients.service;
+
+import com.fasterxml.uuid.Generators;
+import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.protocol.types.Field;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+import io.jsonwebtoken.Jwts;
+import tgb.cryptoexchange.apiclients.dto.ClientDTO;
+import tgb.cryptoexchange.apiclients.dto.ClientRefreshTokenDTO;
+import tgb.cryptoexchange.apiclients.exceptions.BaseException;
+
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.time.Instant;
+import java.util.Date;
+
+@Service
+@Slf4j
+public class JwtService {
+
+    private final Resource secret;
+
+    private final Long accessExpiration;
+
+    private final TimeBasedEpochGenerator generator = Generators.timeBasedEpochGenerator();
+
+    public JwtService(@Value("${secrets.jwt.private}") Resource secret,
+            @Value("${secrets.jwt.ttl-seconds}") Long accessExpiration) {
+        this.secret = secret;
+        this.accessExpiration = accessExpiration;
+    }
+
+    public String generateAccessToken(ClientDTO clientDTO) {
+        Instant now = Instant.now();
+
+        return Jwts.builder()
+                .header().add("alg", "RS256").and()
+                .subject(clientDTO.getId().toString())
+                .issuer("api-clients")
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(now.plusSeconds(accessExpiration)))
+                .id(generator.generate().toString())
+                .claim("username", clientDTO.getUsername())
+                .claim("role", "client")
+                .signWith(getPrivateKey())
+                .compact();
+    }
+
+    private PrivateKey getPrivateKey() {
+        try {
+            byte[] keyBytes = secret.getContentAsByteArray();
+            PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
+            KeyFactory kf = KeyFactory.getInstance("RSA");
+            return kf.generatePrivate(spec);
+        } catch (Exception e) {
+            throw new BaseException("Failed to load private key", e);
+        }
+    }
+
+}

@@ -1,4 +1,4 @@
-package tgb.cryptoexchange.apiclients.controller;
+package tgb.cryptoexchange.apiclients.controller.handler;
 
 import io.grpc.*;
 import io.grpc.protobuf.StatusProto;

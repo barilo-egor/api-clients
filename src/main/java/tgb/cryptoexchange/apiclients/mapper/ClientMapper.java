@@ -30,6 +30,19 @@ public class ClientMapper {
                 .build();
     }
 
+    public ClientDTO clientToDTO(Client client){
+        return ClientDTO.builder()
+                .id(client.getId())
+                .username(client.getUsername())
+                .password(client.getPassword())
+                .apiKey(client.getApiKey())
+                .secret(client.getSecret())
+                .registeredAt(client.getRegisteredAt())
+                .status(client.getStatus())
+                .callbackUrl(client.getCallbackUrl())
+                .build();
+    }
+
     public CreateClientResponseGrpc dtoToGrpc(ClientDTO clientDTO) {
         return CreateClientResponseGrpc.newBuilder()
                 .setUsername(clientDTO.getUsername())

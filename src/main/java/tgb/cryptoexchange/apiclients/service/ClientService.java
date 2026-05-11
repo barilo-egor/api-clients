@@ -4,11 +4,13 @@ import com.google.protobuf.Any;
 import com.google.rpc.BadRequest;
 import com.google.rpc.Code;
 import com.google.rpc.Status;
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tgb.cryptoexchange.apiclients.constants.Metrics;
 import tgb.cryptoexchange.apiclients.dto.ClientByApiKeyDTO;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
@@ -16,6 +18,7 @@ import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
 import tgb.cryptoexchange.apiclients.exceptions.ClientAlreadyExistsException;
 import tgb.cryptoexchange.apiclients.exceptions.GrpcBaseException;
+import tgb.cryptoexchange.apiclients.exceptions.NotFoundException;
 import tgb.cryptoexchange.apiclients.exceptions.PasswordValidationException;
 import tgb.cryptoexchange.apiclients.mapper.ClientMapper;
 import tgb.cryptoexchange.apiclients.repository.ClientRepository;
@@ -25,7 +28,7 @@ import tgb.cryptoexchange.apiclients.repository.ClientRepository;
 @Transactional
 public class ClientService {
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
     private static final String PASSWORD_PATTERN =
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
@@ -36,14 +39,20 @@ public class ClientService {
 
     private final ClientMapper clientMapper;
 
+    private final MeterRegistry meterRegistry;
+
     public ClientService(ClientRepository clientRepository, KeyManagementService keyManagementService,
-                         ClientMapper clientMapper) {
+            ClientMapper clientMapper, PasswordEncoder passwordEncoder, MeterRegistry meterRegistry) {
         this.clientRepository = clientRepository;
         this.keyManagementService = keyManagementService;
         this.clientMapper = clientMapper;
+        this.passwordEncoder = passwordEncoder;
+        this.meterRegistry = meterRegistry;
     }
 
+    @Timed(value = Metrics.CLIENT_CREATE, description = "Метрики запросов на создание client.")
     public ClientDTO create(ClientDTO clientDTO) {
+        log.debug("Запрос на создание client: username {}", clientDTO.getUsername());
         if (clientRepository.existsByUsername(clientDTO.getUsername())) {
             throw new ClientAlreadyExistsException("Username is already taken.");
         }
@@ -52,11 +61,13 @@ public class ClientService {
         GeneratedKeys generatedKeys = keyManagementService.generateApiSecret(client);
         client.setStatus(ClientStatus.ACTIVE);
         client = clientRepository.save(client);
-
+        log.debug("Создан клиент client: {}", clientDTO);
         return clientMapper.createdClientToDTO(client, generatedKeys);
     }
 
+    @Timed(value = Metrics.CLIENT_GET_BY_API_KEY, description = "Метрики запросов на получение client по apiKey.")
     public ClientByApiKeyDTO getClientByApiKey(String apiKey) {
+        log.debug("Запрос client: apiKey {}", apiKey);
         String hashedApiKey;
         try {
             if (apiKey == null || apiKey.isBlank()) {
@@ -72,8 +83,23 @@ public class ClientService {
                         .setCode(Code.NOT_FOUND_VALUE)
                         .setMessage("User not found.")
                         .build()));
+        log.debug("Найден client: id {}, apiKey {}, secret {}", client.getId(), client.getApiKey(), client.getSecret());
         String decryptedSecret = keyManagementService.decryptAesGcm(client.getSecret());
         return clientMapper.getClientByApiKeyDTO(client, decryptedSecret);
+    }
+
+    public ClientDTO getClientByUsername(String username) {
+        log.debug("Запрос client: username {}", username);
+        Client client = clientRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException(username));
+        return clientMapper.clientToDTO(client);
+    }
+
+    public ClientDTO getClientById(Long id) {
+        log.debug("Запрос client: id {}", id);
+        Client client = clientRepository.findClientById(id)
+                .orElseThrow(() -> new NotFoundException(String.valueOf(id)));
+        return clientMapper.clientToDTO(client);
     }
 
     private GrpcBaseException createInvalidApiKeyException() {
@@ -96,6 +122,5 @@ public class ClientService {
         }
         return passwordEncoder.encode(password);
     }
-
 
 }

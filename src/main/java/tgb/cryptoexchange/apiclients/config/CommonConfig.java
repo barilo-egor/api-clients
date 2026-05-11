@@ -13,6 +13,8 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import tgb.cryptoexchange.apiclients.dto.WithdrawalRequestDTO;
 import tgb.cryptoexchange.apiclients.kafka.WithdrawalReceiveProducerListener;
 import tgb.cryptoexchange.apiclients.kafka.WithdrawalRequestReceiveEventSerializer;
@@ -57,5 +59,9 @@ public class CommonConfig {
         return kafkaTemplate;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }

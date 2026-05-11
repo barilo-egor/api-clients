@@ -11,7 +11,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-server:
+  mvc:
+    problemdetails:
+        enabled: true
   port:
 secrets:
   master-key:
