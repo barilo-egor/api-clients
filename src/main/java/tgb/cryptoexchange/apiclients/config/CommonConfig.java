@@ -2,6 +2,7 @@ package tgb.cryptoexchange.apiclients.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -37,24 +38,27 @@ public class CommonConfig {
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.registerModule(new JavaTimeModule());
         return objectMapper;
     }
 
     @Bean
     @Profile("!kafka-disabled")
-    public ProducerFactory<String, WithdrawalRequestDTO> withdrawalRequestProducerFactory(KafkaProperties kafkaProperties) {
+    public ProducerFactory<String, WithdrawalRequestDTO> withdrawalRequestProducerFactory(KafkaProperties kafkaProperties, ObjectMapper objectMapper) {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, WithdrawalRequestReceiveEventSerializer.class);
-        return new DefaultKafkaProducerFactory<>(configProps);
+        return new DefaultKafkaProducerFactory<>(
+                configProps,
+                new StringSerializer(),
+                new WithdrawalRequestReceiveEventSerializer(objectMapper)
+        );
     }
 
     @Bean
     @Profile("!kafka-disabled")
     public KafkaTemplate<String, WithdrawalRequestDTO> kafkaTemplate(WithdrawalReceiveProducerListener withdrawalReceiveProducerListener,
-                                                                     KafkaProperties kafkaProperties) {
-        KafkaTemplate<String, WithdrawalRequestDTO> kafkaTemplate = new KafkaTemplate<>(withdrawalRequestProducerFactory(kafkaProperties));
+                                                                     KafkaProperties kafkaProperties, ObjectMapper objectMapper) {
+        KafkaTemplate<String, WithdrawalRequestDTO> kafkaTemplate = new KafkaTemplate<>(withdrawalRequestProducerFactory(kafkaProperties, objectMapper));
         kafkaTemplate.setProducerListener(withdrawalReceiveProducerListener);
         return kafkaTemplate;
     }

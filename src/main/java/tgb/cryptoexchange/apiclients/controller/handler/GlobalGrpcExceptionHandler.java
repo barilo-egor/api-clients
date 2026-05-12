@@ -3,11 +3,13 @@ package tgb.cryptoexchange.apiclients.controller.handler;
 import io.grpc.*;
 import io.grpc.protobuf.StatusProto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.grpc.server.GlobalServerInterceptor;
 import org.springframework.stereotype.Component;
 import tgb.cryptoexchange.apiclients.exceptions.*;
 
 @Slf4j
 @Component
+@GlobalServerInterceptor
 public class GlobalGrpcExceptionHandler implements ServerInterceptor {
 
     @Override
@@ -41,19 +43,20 @@ public class GlobalGrpcExceptionHandler implements ServerInterceptor {
 
     private void handle(Exception ex, ServerCall<?, ?> call) {
         StatusRuntimeException out;
-        if (ex instanceof ClientAlreadyExistsException || ex instanceof PasswordValidationException) {
-            out = buildBadRequestStatus("username", ex.getMessage());
-        } else if (ex instanceof FieldNotBeEmptyException fieldEx) {
-            out = buildBadRequestStatus(fieldEx.getField(), ex.getMessage());
-        }else if (ex instanceof NotFoundException notFoundEx) {
-            out = buildBadRequestStatus(notFoundEx.getFieldId(), ex.getMessage());
-        } else if (ex instanceof GrpcBaseException grpcEx) {
-            out = StatusProto.toStatusRuntimeException(grpcEx.getRpcStatus());
-        } else {
+        switch (ex) {
+        case ClientAlreadyExistsException clientAlreadyExistsException ->
+                out = buildBadRequestStatus(clientAlreadyExistsException.getField(), ex.getMessage());
+        case PasswordValidationException passwordValidationException ->
+                out = buildBadRequestStatus(passwordValidationException.getField(), ex.getMessage());
+        case FieldNotBeEmptyException fieldEx -> out = buildBadRequestStatus(fieldEx.getField(), ex.getMessage());
+        case NotFoundException notFoundEx -> out = buildBadRequestStatus(notFoundEx.getFieldId(), ex.getMessage());
+        case GrpcBaseException grpcEx -> out = StatusProto.toStatusRuntimeException(grpcEx.getRpcStatus());
+        case null, default -> {
             log.error("Unexpected system error: ", ex);
-            out = io.grpc.Status.INTERNAL
+            out = Status.INTERNAL
                     .withDescription("Internal server error")
                     .asRuntimeException();
+        }
         }
         call.close(out.getStatus(), out.getTrailers());
     }
@@ -73,4 +76,5 @@ public class GlobalGrpcExceptionHandler implements ServerInterceptor {
                 .build();
         return StatusProto.toStatusRuntimeException(status);
     }
+
 }

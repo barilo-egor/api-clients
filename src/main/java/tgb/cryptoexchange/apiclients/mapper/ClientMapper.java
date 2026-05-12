@@ -11,6 +11,7 @@ import tgb.cryptoexchange.grpc.generated.CreateClientResponseGrpc;
 import tgb.cryptoexchange.grpc.generated.GetClientByApiKeyResponseGrpc;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Component
 public class ClientMapper {
@@ -21,6 +22,7 @@ public class ClientMapper {
 
     public ClientDTO createdClientToDTO(Client client, GeneratedKeys generatedKeys) {
         return ClientDTO.builder()
+                .id(client.getId())
                 .username(client.getUsername())
                 .apiKey(generatedKeys.key())
                 .secret(generatedKeys.secret())
@@ -43,14 +45,16 @@ public class ClientMapper {
                 .build();
     }
 
-    public CreateClientResponseGrpc dtoToGrpc(ClientDTO clientDTO) {
+    public CreateClientResponseGrpc createClientResponseGrpc(ClientDTO clientDTO) {
         return CreateClientResponseGrpc.newBuilder()
-                .setUsername(clientDTO.getUsername())
-                .setApiKey(clientDTO.getApiKey())
-                .setSecret(clientDTO.getSecret())
-                .setRegisteredAt(instantToTimestamp(clientDTO.getRegisteredAt()))
-                .setStatus(clientDTO.getStatus().name())
-                .setCallbackUrl(clientDTO.getCallbackUrl())
+                .setUsername(Objects.requireNonNullElse(clientDTO.getUsername(), ""))
+                .setApiKey(Objects.requireNonNullElse(clientDTO.getApiKey(), ""))
+                .setSecret(Objects.requireNonNullElse(clientDTO.getSecret(), ""))
+                .setRegisteredAt(clientDTO.getRegisteredAt() != null
+                        ? instantToTimestamp(clientDTO.getRegisteredAt())
+                        : Timestamp.getDefaultInstance())
+                .setStatus(clientDTO.getStatus() != null ? clientDTO.getStatus().name() : "")
+                .setCallbackUrl(Objects.requireNonNullElse(clientDTO.getCallbackUrl(), ""))
                 .build();
     }
 
@@ -66,7 +70,7 @@ public class ClientMapper {
         return GetClientByApiKeyResponseGrpc.newBuilder()
                 .setUsername(clientDTO.getUsername())
                 .setSecret(clientDTO.getSecret())
-                .setSecret(clientDTO.getSecret())
+                .setStatus(clientDTO.getStatus().name())
                 .build();
     }
 

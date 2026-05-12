@@ -4,13 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serializer;
+import org.springframework.stereotype.Component;
 import tgb.cryptoexchange.apiclients.dto.WithdrawalRequestDTO;
 import tgb.cryptoexchange.apiclients.exceptions.BodyMappingException;
 
 @Slf4j
 public class WithdrawalRequestReceiveEventSerializer implements Serializer<WithdrawalRequestDTO> {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    public WithdrawalRequestReceiveEventSerializer(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public byte[] serialize(String topic, WithdrawalRequestDTO withdrawalRequestReceiveEvent) {

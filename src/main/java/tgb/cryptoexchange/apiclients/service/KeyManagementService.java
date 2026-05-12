@@ -23,7 +23,6 @@ import java.util.HexFormat;
 @Slf4j
 public class KeyManagementService {
 
-
     private final String masterKey;
 
     private static final String PREFIX = "tgb";
@@ -92,7 +91,7 @@ public class KeyManagementService {
         }
     }
 
-    private String encryptAesGcm(byte[] data) {
+    public String encryptAesGcm(byte[] data) {
         try {
             byte[] iv = new byte[12];
             secureRandom.nextBytes(iv);

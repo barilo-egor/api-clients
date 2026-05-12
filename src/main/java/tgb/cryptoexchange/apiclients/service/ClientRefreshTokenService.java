@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tgb.cryptoexchange.apiclients.dto.ClientRefreshTokenDTO;
 import tgb.cryptoexchange.apiclients.entity.ClientRefreshToken;
-import tgb.cryptoexchange.apiclients.exceptions.NotFoundException;
-import tgb.cryptoexchange.apiclients.exceptions.UnauthorizedException;
 import tgb.cryptoexchange.apiclients.repository.ClientRefreshTokenRepository;
 
 import java.time.Instant;
@@ -43,7 +41,7 @@ public class ClientRefreshTokenService {
         return tokenRepository.save(newToken).getToken().toString();
     }
 
-    public Optional<ClientRefreshTokenDTO> findByToken(String token){
+    public Optional<ClientRefreshTokenDTO> findByToken(String token) {
         return tokenRepository.findByToken(UUID.fromString(token))
                 .map(entity -> ClientRefreshTokenDTO.builder()
                         .token(entity.getToken().toString())

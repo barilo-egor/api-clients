@@ -26,7 +26,7 @@ public class ClientGrpcService extends ClientsServiceGrpc.ClientsServiceImplBase
     public void createClient(CreateClientGrpc request, StreamObserver<CreateClientResponseGrpc> responseObserver) {
         ClientDTO clientDTO = mapper.toDTO(request);
         ClientDTO savedClient = clientService.create(clientDTO);
-        responseObserver.onNext(mapper.dtoToGrpc(savedClient));
+        responseObserver.onNext(mapper.createClientResponseGrpc(savedClient));
         responseObserver.onCompleted();
     }
 

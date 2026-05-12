@@ -36,15 +36,15 @@ public class ClientController {
     }
 
     @PostMapping("/clients")
-    public ResponseEntity<ClientDTO> createClient(ClientDTO request) {
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO request) {
         ClientDTO savedClient = clientService.create(request);
         return ResponseEntity.ok().body(savedClient);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
-        if (authRequest == null || authRequest.username() == null || authRequest.password() == null
-                || authRequest.refreshToken() == null) {
+        if (authRequest == null || authRequest.username() == null || (authRequest.password() == null
+                && authRequest.refreshToken() == null)) {
             throw new UnauthorizedException("No credentials provided");
         }
         TokenPair tokens = authService.authenticate(authRequest);
