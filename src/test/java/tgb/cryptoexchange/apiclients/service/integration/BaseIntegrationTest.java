@@ -1,4 +1,4 @@
-package tgb.cryptoexchange.apiclients.service;
+package tgb.cryptoexchange.apiclients.service.integration;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -13,7 +13,6 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.kafka.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -34,7 +33,7 @@ public abstract class BaseIntegrationTest {
     static {
         mysql = new MySQLContainer<>("mysql:8.0")
                 .withDatabaseName("testdb")
-                .withReuse(true); // Позволяет переиспользовать контейнер
+                .withReuse(true);
 
         kafka = new KafkaContainer(DockerImageName.parse("apache/kafka:3.7.0"));
 

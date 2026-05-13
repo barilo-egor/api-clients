@@ -30,7 +30,7 @@ public class ClientService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private static final String PASSWORD_PATTERN =
+    private static final String STRENGTH_REGEX =
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
     private final ClientRepository clientRepository;
@@ -39,15 +39,12 @@ public class ClientService {
 
     private final ClientMapper clientMapper;
 
-    private final MeterRegistry meterRegistry;
-
     public ClientService(ClientRepository clientRepository, KeyManagementService keyManagementService,
-            ClientMapper clientMapper, PasswordEncoder passwordEncoder, MeterRegistry meterRegistry) {
+            ClientMapper clientMapper, PasswordEncoder passwordEncoder) {
         this.clientRepository = clientRepository;
         this.keyManagementService = keyManagementService;
         this.clientMapper = clientMapper;
         this.passwordEncoder = passwordEncoder;
-        this.meterRegistry = meterRegistry;
     }
 
     @Timed(value = Metrics.CLIENT_CREATE, description = "Метрики запросов на создание client.")
@@ -73,7 +70,7 @@ public class ClientService {
             if (apiKey == null || apiKey.isBlank()) {
                 throw createInvalidApiKeyException();
             }
-            hashedApiKey = keyManagementService.getHashedApiKey(apiKey);
+            hashedApiKey = keyManagementService.hashSha256(apiKey);
         } catch (GrpcBaseException e) {
             throw createInvalidApiKeyException();
         }
@@ -116,7 +113,7 @@ public class ClientService {
     }
 
     private String validateAndHashPassword(String password) {
-        if (password == null || !password.matches(PASSWORD_PATTERN)) {
+        if (password == null || !password.matches(STRENGTH_REGEX)) {
             throw new PasswordValidationException("Password must be at least 8 characters long, " +
                     "include uppercase, lowercase, numbers, and special characters.");
         }

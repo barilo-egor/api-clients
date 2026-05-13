@@ -50,11 +50,7 @@ public class KeyManagementService {
         return new GeneratedKeys(rawApiKey, rawSecretForClient);
     }
 
-    public String getHashedApiKey(String apiKey) {
-        return hashSha256(apiKey);
-    }
-
-    private String hashSha256(String input) {
+    public String hashSha256(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));

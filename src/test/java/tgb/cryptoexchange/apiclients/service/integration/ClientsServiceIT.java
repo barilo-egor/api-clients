@@ -1,23 +1,17 @@
-package tgb.cryptoexchange.apiclients.service;
+package tgb.cryptoexchange.apiclients.service.integration;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.rpc.BadRequest;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import io.grpc.protobuf.StatusProto;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.grpc.test.autoconfigure.LocalGrpcPort;
-import org.springframework.transaction.annotation.Transactional;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
-import tgb.cryptoexchange.apiclients.repository.ClientRepository;
+import tgb.cryptoexchange.apiclients.service.KeyManagementService;
 import tgb.cryptoexchange.grpc.generated.ClientsServiceGrpc;
 import tgb.cryptoexchange.grpc.generated.CreateClientGrpc;
 import tgb.cryptoexchange.grpc.generated.CreateClientResponseGrpc;

@@ -1,4 +1,4 @@
-package tgb.cryptoexchange.apiclients.service;
+package tgb.cryptoexchange.apiclients.service.integration;
 
 import com.google.protobuf.Empty;
 import org.junit.jupiter.api.BeforeEach;

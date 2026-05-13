@@ -1,4 +1,4 @@
-package tgb.cryptoexchange.apiclients.service;
+package tgb.cryptoexchange.apiclients.service.integration;
 
 import com.google.protobuf.Int64Value;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -11,7 +11,6 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,6 @@ import tgb.cryptoexchange.apiclients.entity.WithdrawalRequest;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
 import tgb.cryptoexchange.apiclients.enums.WithdrawalRequestStatus;
 import tgb.cryptoexchange.apiclients.repository.ClientRepository;
-import tgb.cryptoexchange.apiclients.repository.WithdrawalRequestRepository;
 import tgb.cryptoexchange.grpc.generated.CreateWithdrawalRequestGrpc;
 import tgb.cryptoexchange.grpc.generated.UpdateWithdrawalRequestGrpc;
 import tgb.cryptoexchange.grpc.generated.WithdrawalRequestServiceGrpc;

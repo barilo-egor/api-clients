@@ -1,4 +1,4 @@
-package tgb.cryptoexchange.apiclients.service;
+package tgb.cryptoexchange.apiclients.service.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
@@ -7,13 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import tgb.cryptoexchange.apiclients.dto.AuthRequest;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
-import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.entity.ClientRefreshToken;
-import tgb.cryptoexchange.apiclients.repository.ClientRefreshTokenRepository;
+import tgb.cryptoexchange.apiclients.service.ClientService;
 
 import java.time.Instant;
 import java.util.List;
