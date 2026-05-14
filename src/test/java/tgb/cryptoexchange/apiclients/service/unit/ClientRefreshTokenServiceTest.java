@@ -67,7 +67,7 @@ class ClientRefreshTokenServiceTest {
         entity.setClientId(clientId);
         entity.setExpiresAt(expiresAt);
 
-        when(tokenRepository.findByToken(tokenUuid)).thenReturn(Optional.of(entity));
+        when(tokenRepository.findById(tokenUuid)).thenReturn(Optional.of(entity));
 
         Optional<ClientRefreshTokenDTO> result = tokenService.findByToken(tokenStr);
 
@@ -84,7 +84,7 @@ class ClientRefreshTokenServiceTest {
         UUID tokenUuid = UUID.randomUUID();
         String tokenStr = tokenUuid.toString();
 
-        when(tokenRepository.findByToken(tokenUuid)).thenReturn(Optional.empty());
+        when(tokenRepository.findById(tokenUuid)).thenReturn(Optional.empty());
 
         Optional<ClientRefreshTokenDTO> result = tokenService.findByToken(tokenStr);
 

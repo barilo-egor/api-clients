@@ -29,7 +29,6 @@ class ClientsServiceIT extends BaseIntegrationTest {
 
     private ClientsServiceGrpc.ClientsServiceBlockingStub blockingStub;
 
-
     @BeforeEach
     void setup() {
         blockingStub = ClientsServiceGrpc.newBlockingStub(channel);

@@ -31,7 +31,8 @@ public class ClientGrpcService extends ClientsServiceGrpc.ClientsServiceImplBase
     }
 
     @Override
-    public void getClientByApiKey(GetClientByApiKeyGrpc request, StreamObserver<GetClientByApiKeyResponseGrpc> responseObserver) {
+    public void getClientByApiKey(GetClientByApiKeyGrpc request,
+            StreamObserver<GetClientByApiKeyResponseGrpc> responseObserver) {
         ClientByApiKeyDTO clientDTO = clientService.getClientByApiKey(request.getApiKey());
         responseObserver.onNext(mapper.getClientByApiKeyResponseGrpc(clientDTO));
         responseObserver.onCompleted();

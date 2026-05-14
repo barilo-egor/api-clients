@@ -139,7 +139,7 @@ class ClientRestControllerIT extends BaseIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.accessToken").isNotEmpty());
 
-        assertThat(tokenRepository.findByToken(existingToken)).isEmpty();
+        assertThat(tokenRepository.findById(existingToken)).isEmpty();
         assertThat(tokenRepository.findAll()).hasSize(1);
     }
 

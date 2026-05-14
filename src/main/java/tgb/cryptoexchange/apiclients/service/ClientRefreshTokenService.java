@@ -42,7 +42,7 @@ public class ClientRefreshTokenService {
     }
 
     public Optional<ClientRefreshTokenDTO> findByToken(String token) {
-        return tokenRepository.findByToken(UUID.fromString(token))
+        return tokenRepository.findById(UUID.fromString(token))
                 .map(entity -> ClientRefreshTokenDTO.builder()
                         .token(entity.getToken().toString())
                         .clientId(entity.getClientId())
