@@ -7,6 +7,7 @@ import tgb.cryptoexchange.apiclients.dto.AuthRequest;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.ClientRefreshTokenDTO;
 import tgb.cryptoexchange.apiclients.dto.TokenPair;
+import tgb.cryptoexchange.apiclients.enums.ErrorCode;
 import tgb.cryptoexchange.apiclients.exceptions.UnauthorizedException;
 
 import java.time.Instant;
@@ -31,6 +32,12 @@ public class AuthenticationManagerService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Аутентифицирует клиента и генерирует пару токенов (Access/Refresh).
+     * @param request данные аутентификации (username/password ИЛИ refreshToken)
+     * @return новая пара токенов {@link TokenPair}
+     * @throws UnauthorizedException если неверный пароль, токен не найден или просрочен
+     */
     public TokenPair authenticate(AuthRequest request) {
         ClientDTO clientDTO;
 

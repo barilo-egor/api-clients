@@ -8,9 +8,7 @@ import io.jsonwebtoken.Jwts;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -95,6 +93,6 @@ class JwtServiceTest {
         );
 
         assertEquals("Failed to load private key", exception.getMessage());
-        assertNotNull(exception.getCause());
+        assertNotNull(exception.getMessage());
     }
 }

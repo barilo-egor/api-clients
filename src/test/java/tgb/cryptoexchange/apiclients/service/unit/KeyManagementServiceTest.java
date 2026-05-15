@@ -13,7 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
-import tgb.cryptoexchange.apiclients.exceptions.GrpcBaseException;
+import tgb.cryptoexchange.apiclients.exceptions.BaseException;
+import tgb.cryptoexchange.apiclients.exceptions.GrpcValidationException;
 import tgb.cryptoexchange.apiclients.service.KeyManagementService;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,11 +46,11 @@ class KeyManagementServiceTest {
     }
 
     @Test
-    @DisplayName("Дешифрование падает с GrpcBaseException, если передан поврежденный шифротекст")
-    void should_throwGrpcBaseException_when_encryptedTextIsCorrupted() {
+    @DisplayName("Дешифрование падает с BaseException, если передан поврежденный шифротекст")
+    void should_throwBaseException_when_encryptedTextIsCorrupted() {
         String corruptedCipher = Base64.getEncoder().encodeToString("bad-data-not-gcm-format".getBytes());
 
-        assertThrows(GrpcBaseException.class, () ->
+        assertThrows(BaseException.class, () ->
                 keyManagementService.decryptAesGcm(corruptedCipher)
         );
     }

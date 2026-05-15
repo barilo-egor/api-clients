@@ -2,15 +2,12 @@ package tgb.cryptoexchange.apiclients.service;
 
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
-import tgb.cryptoexchange.apiclients.dto.ClientRefreshTokenDTO;
 import tgb.cryptoexchange.apiclients.exceptions.BaseException;
 
 import java.security.KeyFactory;
@@ -35,6 +32,14 @@ public class JwtService {
         this.accessExpiration = accessExpiration;
     }
 
+    /**
+     * Генерирует подписанный Access-токен на основе данных клиента.
+     * Токен подписывается приватным ключом по алгоритму RS256 и содержит
+     * идентификатор клиента (subject), его имя пользователя (username) и роль.
+     *
+     * @param clientDTO данные клиента для авторизационного контекста
+     * @return строка сгенерированного и подписанного JWT-токена
+     */
     public String generateAccessToken(ClientDTO clientDTO) {
         Instant now = Instant.now();
 
@@ -58,7 +63,7 @@ public class JwtService {
             KeyFactory kf = KeyFactory.getInstance("RSA");
             return kf.generatePrivate(spec);
         } catch (Exception e) {
-            throw new BaseException("Failed to load private key", e);
+            throw new BaseException("Failed to load private key");
         }
     }
 

@@ -4,7 +4,7 @@ import lombok.Getter;
 import tgb.cryptoexchange.apiclients.enums.ErrorCode;
 
 @Getter
-public class FieldNotBeEmptyException extends RuntimeException implements CustomException {
+public class InvalidApiKeyException extends RuntimeException implements CustomException {
 
     private final ErrorCode errorCode;
 
@@ -12,11 +12,11 @@ public class FieldNotBeEmptyException extends RuntimeException implements Custom
 
     private final String description;
 
-    public FieldNotBeEmptyException(final String field) {
-        super("Bad request.");
+    public InvalidApiKeyException() {
+        super("User not found.");
+        this.field = "apiKey";
         this.errorCode = ErrorCode.INVALID_ARGUMENT;
-        this.field = field;
-        this.description = "Should not be empty.";
+        this.description = "ApiKey is invalid.";
     }
 
 }

@@ -1,11 +1,6 @@
 package tgb.cryptoexchange.apiclients.service;
 
-import com.google.protobuf.Any;
-import com.google.rpc.BadRequest;
-import com.google.rpc.Code;
-import com.google.rpc.Status;
 import io.micrometer.core.annotation.Timed;
-import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,10 +11,8 @@ import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
-import tgb.cryptoexchange.apiclients.exceptions.ClientAlreadyExistsException;
-import tgb.cryptoexchange.apiclients.exceptions.GrpcBaseException;
-import tgb.cryptoexchange.apiclients.exceptions.NotFoundException;
-import tgb.cryptoexchange.apiclients.exceptions.PasswordValidationException;
+import tgb.cryptoexchange.apiclients.enums.ErrorCode;
+import tgb.cryptoexchange.apiclients.exceptions.*;
 import tgb.cryptoexchange.apiclients.mapper.ClientMapper;
 import tgb.cryptoexchange.apiclients.repository.ClientRepository;
 
@@ -47,11 +40,22 @@ public class ClientService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Создает нового клиента.
+     * <p>
+     * Метод хэширует пароль, сохраняет сущность в базу данных, а также
+     * генерирует секретные ключи {@link GeneratedKeys} через {@link KeyManagementService}.
+     *
+     * @param clientDTO данные для создания нового клиента
+     * @return {@link ClientDTO} созданного клиента
+     * @throws ClientAlreadyExistsException если клиент с таким username уже зарегистрирован
+     * @throws PasswordValidationException если пароль не прошел валидацию
+     */
     @Timed(value = Metrics.CLIENT_CREATE, description = "Метрики запросов на создание client.")
     public ClientDTO create(ClientDTO clientDTO) {
         log.debug("Запрос на создание client: username {}", clientDTO.getUsername());
         if (clientRepository.existsByUsername(clientDTO.getUsername())) {
-            throw new ClientAlreadyExistsException("Username is already taken.");
+            throw new ClientAlreadyExistsException();
         }
         final String encryptedPassword = validateAndHashPassword(clientDTO.getPassword());
         Client client = Client.builder().username(clientDTO.getUsername()).password(encryptedPassword).build();
@@ -62,29 +66,44 @@ public class ClientService {
         return clientMapper.createdClientToDTO(client, generatedKeys);
     }
 
+    /**
+     * Возвращает данные клиента по его API-ключу с расшифровкой secret.
+     * <p>
+     * Метод хэширует входящий API-ключ по алгоритму SHA-256 для поиска в БД,
+     * а затем расшифровывает защищенный секрет клиента с помощью AES-GCM.
+     *
+     * @param apiKey открытый API-ключ клиента
+     * @return {@link ClientByApiKeyDTO} с данными клиента
+     * @throws InvalidApiKeyException если передан пустой ключ или произошла ошибка его хэширования
+     * @throws UserNotFoundException если клиент с хэшем данного ключа не найден в системе
+     */
     @Timed(value = Metrics.CLIENT_GET_BY_API_KEY, description = "Метрики запросов на получение client по apiKey.")
     public ClientByApiKeyDTO getClientByApiKey(String apiKey) {
         log.debug("Запрос client: apiKey {}", apiKey);
         String hashedApiKey;
         try {
             if (apiKey == null || apiKey.isBlank()) {
-                throw createInvalidApiKeyException();
+                throw new InvalidApiKeyException();
             }
             hashedApiKey = keyManagementService.hashSha256(apiKey);
-        } catch (GrpcBaseException e) {
-            throw createInvalidApiKeyException();
+        } catch (BaseException e) {
+            throw new InvalidApiKeyException();
         }
 
         Client client = clientRepository.findByApiKey(hashedApiKey)
-                .orElseThrow(() -> new GrpcBaseException(Status.newBuilder()
-                        .setCode(Code.NOT_FOUND_VALUE)
-                        .setMessage("User not found.")
-                        .build()));
+                .orElseThrow(UserNotFoundException::new);
         log.debug("Найден client: id {}, apiKey {}, secret {}", client.getId(), client.getApiKey(), client.getSecret());
         String decryptedSecret = keyManagementService.decryptAesGcm(client.getSecret());
         return clientMapper.getClientByApiKeyDTO(client, decryptedSecret);
     }
 
+    /**
+     * Возвращает данные клиента по его username.
+     *
+     * @param username имя пользователя для поиска
+     * @return {@link ClientDTO} с данными найденного клиента
+     * @throws NotFoundException если клиент с указанным username не найден в системе
+     */
     public ClientDTO getClientByUsername(String username) {
         log.debug("Запрос client: username {}", username);
         Client client = clientRepository.findByUsername(username)
@@ -92,6 +111,13 @@ public class ClientService {
         return clientMapper.clientToDTO(client);
     }
 
+    /**
+     * Возвращает данные клиента по его ID.
+     *
+     * @param id уникальный идентификатор клиента
+     * @return {@link ClientDTO} с данными найденного клиента
+     * @throws NotFoundException если клиент с указанным ID не найден в системе
+     */
     public ClientDTO getClientById(Long id) {
         log.debug("Запрос client: id {}", id);
         Client client = clientRepository.findClientById(id)
@@ -99,23 +125,9 @@ public class ClientService {
         return clientMapper.clientToDTO(client);
     }
 
-    private GrpcBaseException createInvalidApiKeyException() {
-        throw new GrpcBaseException(
-                Code.INVALID_ARGUMENT,
-                "User not found.",
-                Any.pack(BadRequest.newBuilder()
-                        .addFieldViolations(BadRequest.FieldViolation.newBuilder()
-                                .setField("apiKey")
-                                .setDescription("ApiKey is invalid.")
-                                .build())
-                        .build())
-        );
-    }
-
     private String validateAndHashPassword(String password) {
         if (password == null || !password.matches(STRENGTH_REGEX)) {
-            throw new PasswordValidationException("Password must be at least 8 characters long, " +
-                    "include uppercase, lowercase, numbers, and special characters.");
+            throw new PasswordValidationException();
         }
         return passwordEncoder.encode(password);
     }

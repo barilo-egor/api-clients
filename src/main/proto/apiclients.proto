@@ -9,17 +9,44 @@ import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 import "buf/validate/validate.proto";
 
+/**
+ * Сервис обеспечивает регистрацию новых клиентов и получение по API-ключам.
+ */
 service ClientsService {
+  /**
+   * Метод для создания клиента.
+   * При возникновении ClientAlreadyExistsException, PasswordValidationException или FieldNotBeEmptyException
+   * возвращает gRPC-код INVALID_ARGUMENT (Код 3).
+   */
   rpc CreateClient (CreateClientGrpc) returns (CreateClientResponseGrpc);
+  /**
+  * Метод получения клиента по апи ключу.
+  * При отсутствии клиента возвращает gRPC-код NOT_FOUND_VALUE (Код 5).
+  * При отсутствии/невалидности переданного ключа ключа возвращает gRPC-код INVALID_ARGUMENT (Код 3).
+  */
   rpc GetClientByApiKey (GetClientByApiKeyGrpc) returns (GetClientByApiKeyResponseGrpc);
 }
 
+/**
+ * Сервис обработки заявок на вывод денежных средств (выплаты).
+ */
 service WithdrawalRequestService {
+  /**
+  * Метод для создания заявки на вывод.
+  */
   rpc CreateWithdrawalRequest (CreateWithdrawalRequestGrpc) returns(google.protobuf.Empty);
+  /**
+  * Метод для обновления заявки на вывод.
+  * При пустом id возвращает gRPC-код INVALID_ARGUMENT_VALUE (Код 3).
+  * Если запись не найдена возвращает gRPC-код NOT_FOUND_VALUE (Код 5).
+  */
   rpc UpdateWithdrawalRequest (UpdateWithdrawalRequestGrpc) returns(google.protobuf.Empty);
 }
 
 service SecurityService {
+  /**
+  * Метод выдачи публичного ключа для валидации JWT.
+  */
   rpc GetPublicKey (google.protobuf.Empty) returns (GetPublicJWTKeyResponseGrpc);
 }
 
@@ -48,7 +75,7 @@ message GetClientByApiKeyResponseGrpc {
 }
 
 message CreateWithdrawalRequestGrpc{
-  int64 client_id = 1 [(buf.validate.field).string.min_len = 1];
+  int64 client_id = 1 [(buf.validate.field).int64.gt = 0];
   int32 amount = 2 [(buf.validate.field).int32.gt = 0];
   string wallet = 3 [(buf.validate.field).string.min_len = 1];
   google.protobuf.StringValue comment = 4;

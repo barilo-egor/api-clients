@@ -26,7 +26,7 @@ public class WithdrawalRequestReceiveEventSerializer implements Serializer<Withd
             return objectMapper.writeValueAsBytes(withdrawalRequestReceiveEvent);
         } catch (JsonProcessingException e) {
             log.error("Ошибка сериализации объекта для отправки в топик {}: {}", topic, withdrawalRequestReceiveEvent);
-            throw new BodyMappingException("Error occurred while mapping merchantHistory", e);
+            throw new BodyMappingException("Error occurred while mapping withdrawalRequest", e);
         }
     }
 }

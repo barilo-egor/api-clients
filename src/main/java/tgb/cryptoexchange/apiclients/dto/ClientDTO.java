@@ -5,6 +5,9 @@ import tgb.cryptoexchange.apiclients.enums.ClientStatus;
 
 import java.time.Instant;
 
+/**
+ * @see tgb.cryptoexchange.apiclients.entity.Client
+ */
 @Builder
 @Data
 @AllArgsConstructor

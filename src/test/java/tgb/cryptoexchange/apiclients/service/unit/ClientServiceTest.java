@@ -19,10 +19,7 @@ import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
-import tgb.cryptoexchange.apiclients.exceptions.ClientAlreadyExistsException;
-import tgb.cryptoexchange.apiclients.exceptions.GrpcBaseException;
-import tgb.cryptoexchange.apiclients.exceptions.NotFoundException;
-import tgb.cryptoexchange.apiclients.exceptions.PasswordValidationException;
+import tgb.cryptoexchange.apiclients.exceptions.*;
 import tgb.cryptoexchange.apiclients.mapper.ClientMapper;
 import tgb.cryptoexchange.apiclients.repository.ClientRepository;
 import tgb.cryptoexchange.apiclients.service.ClientService;
@@ -120,22 +117,22 @@ class ClientServiceTest {
     @ParameterizedTest
     @ValueSource(strings = {"", "   "})
     @DisplayName("Получение клиента по API-ключу падает, если ключ пустой или равен null")
-    void should_throwGrpcBaseException_when_apiKeyIsNullOrEmpty(String invalidKey) {
-        assertThrows(GrpcBaseException.class, () -> clientService.getClientByApiKey(invalidKey));
-        assertThrows(GrpcBaseException.class, () -> clientService.getClientByApiKey(null));
+    void should_throwInvalidApiKeyException_when_apiKeyIsNullOrEmpty(String invalidKey) {
+        assertThrows(InvalidApiKeyException.class, () -> clientService.getClientByApiKey(invalidKey));
+        assertThrows(InvalidApiKeyException.class, () -> clientService.getClientByApiKey(null));
 
         verifyNoInteractions(clientRepository);
     }
 
     @Test
     @DisplayName("Получение клиента по API-ключу падает, если ключ не найден в репозитории")
-    void should_throwGrpcBaseException_when_clientNotFoundByApiKey() {
+    void should_throwInvalidUserNotFoundException_when_clientNotFoundByApiKey() {
         String rawApiKey = "unknown_key";
         String hashedKey = "hashed_unknown_key";
         when(keyManagementService.hashSha256(rawApiKey)).thenReturn(hashedKey);
         when(clientRepository.findByApiKey(hashedKey)).thenReturn(Optional.empty());
 
-        assertThrows(GrpcBaseException.class, () -> clientService.getClientByApiKey(rawApiKey));
+        assertThrows(UserNotFoundException.class, () -> clientService.getClientByApiKey(rawApiKey));
     }
 
     @Test

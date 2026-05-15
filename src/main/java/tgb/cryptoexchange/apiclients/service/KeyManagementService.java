@@ -1,13 +1,11 @@
 package tgb.cryptoexchange.apiclients.service;
 
-import com.google.rpc.Code;
-import com.google.rpc.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
-import tgb.cryptoexchange.apiclients.exceptions.GrpcBaseException;
+import tgb.cryptoexchange.apiclients.exceptions.BaseException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
@@ -15,6 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HexFormat;
@@ -33,6 +32,13 @@ public class KeyManagementService {
         this.masterKey = masterKey;
     }
 
+    /**
+     * Генерирует новую пару API-ключ/секрет для клиента.
+     * Метод формирует составной API-ключ, включающий префикс, случайную строку и контрольную сумму CRC32.
+     *
+     * @param client сущность клиента, в которую будут записаны хэшированные учетные данные
+     * @return {@link GeneratedKeys}, содержащий открытый API-ключ и секрет для отображения пользователю
+     */
     public GeneratedKeys generateApiSecret(Client client) {
         String body = generateRandomString();
         String checksum = calculateCrc32(body);
@@ -50,19 +56,33 @@ public class KeyManagementService {
         return new GeneratedKeys(rawApiKey, rawSecretForClient);
     }
 
+    /**
+     * Вычисляет криптографический хэш SHA-256 для переданной строки.
+     * Возвращает результат в виде строки в формате HEX.
+     *
+     * @param input исходная строка для хэширования
+     * @return строка хэша в нижнем регистре (HEX-формат)
+     * @throws BaseException если алгоритм SHA-256 не поддерживается текущей JVM
+     */
     public String hashSha256(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
             return HexFormat.of().formatHex(hash);
-        } catch (Exception e) {
-            throw new GrpcBaseException(Status.newBuilder()
-                    .setCode(Code.INTERNAL_VALUE)
-                    .setMessage("Hash error")
-                    .build());
+        } catch (NoSuchAlgorithmException e) {
+            throw new BaseException("SHA-256 algorithm not available");
         }
     }
 
+    /**
+     * Расшифровывает строку секрета, защищенную алгоритмом AES-GCM.
+     * Ожидает на вход Base64-строку, содержащую 12 байт IV (вектор инициализации)
+     * и зашифрованный текст. Расшифровка выполняется мастер-ключом с длиной тега аутентификации 128 бит.
+     *
+     * @param encryptedSecret зашифрованный секрет в формате Base64 (IV + CipherText)
+     * @return расшифрованный секрет в формате Base64
+     * @throws BaseException если произошла ошибка декодирования, неверный ключ или повреждены данные (AEAD-аутентификация провалена)
+     */
     public String decryptAesGcm(String encryptedSecret) {
         try {
             byte[] decoded = Base64.getDecoder().decode(encryptedSecret);
@@ -80,13 +100,20 @@ public class KeyManagementService {
             return Base64.getEncoder().encodeToString(decryptedBytes);
 
         } catch (Exception e) {
-            throw new GrpcBaseException(Status.newBuilder()
-                    .setCode(Code.INTERNAL_VALUE)
-                    .setMessage("Failed to decrypt secret")
-                    .build());
+            throw new BaseException("Failed to decrypt secret");
         }
     }
 
+    /**
+     * Зашифровывает массив байт с использованием алгоритма AES-GCM.
+     * Для каждого вызова генерируется случайный 12-байтовый вектор инициализации (IV).
+     * Результат формируется в виде объединенного массива [IV + CipherText] (тег 128 бит)
+     * и кодируется в формат Base64.
+     *
+     * @param data исходные бинарные данные для шифрования
+     * @return зашифрованная строка в формате Base64, содержащая IV и шифротекст
+     * @throws BaseException если произошла системная ошибка шифрования или не настроен мастер-ключ
+     */
     public String encryptAesGcm(byte[] data) {
         try {
             byte[] iv = new byte[12];
@@ -105,10 +132,7 @@ public class KeyManagementService {
             return Base64.getEncoder().encodeToString(byteBuffer.array());
         } catch (Exception e) {
             log.error("Encryption operation failed. Check master key configuration.");
-            throw new GrpcBaseException(Status.newBuilder()
-                    .setCode(Code.INTERNAL_VALUE)
-                    .setMessage("Encryption error")
-                    .build());
+            throw new BaseException("Encryption error");
         }
     }
 

@@ -1,13 +1,22 @@
 package tgb.cryptoexchange.apiclients.exceptions;
 
-public class BaseException extends RuntimeException{
+import lombok.Getter;
+import tgb.cryptoexchange.apiclients.enums.ErrorCode;
 
-    public BaseException(final String message) {
+@Getter
+public class BaseException extends RuntimeException implements CustomException {
+
+    private final ErrorCode errorCode;
+
+    private final String field;
+
+    private final String description;
+
+    public BaseException(String message) {
         super(message);
-    }
-
-    public BaseException(String message, Throwable cause) {
-        super(message, cause);
+        this.errorCode = ErrorCode.INTERNAL;
+        this.field = null;
+        this.description = null;
     }
 
 }

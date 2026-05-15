@@ -20,12 +20,21 @@ import java.util.UUID;
 @Builder
 public class ClientRefreshToken {
 
+    /**
+     * Сгенерированный UUID v7.
+     */
     @Id
     private UUID token;
 
+    /**
+     * Идентификатор клиента {@link Client#getId()}.
+     */
     @Column(nullable = false, unique = true)
     private Long clientId;
 
+    /**
+     * Временная метка, обозначающая срок действия токена.
+     */
     @Column(nullable = false)
     private Instant expiresAt;
 

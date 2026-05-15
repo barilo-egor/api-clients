@@ -211,7 +211,7 @@ class WithdrawalIT extends BaseIntegrationTest {
             blockingStub.updateWithdrawalRequest(request);
         });
 
-        assertThat(exception.getStatus().getCode()).isEqualTo(Status.Code.INVALID_ARGUMENT);
+        assertThat(exception.getStatus().getCode()).isEqualTo(Status.Code.NOT_FOUND);
 
         com.google.rpc.Status status = StatusProto.fromThrowable(exception);
         BadRequest badRequest = null;

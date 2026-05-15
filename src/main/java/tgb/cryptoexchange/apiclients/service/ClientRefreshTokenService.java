@@ -31,6 +31,12 @@ public class ClientRefreshTokenService {
         this.refreshExpiration = refreshExpiration;
     }
 
+    /**
+     * Удаляет текущий Refresh-токен клиента и генерирует для него новый Refresh-токен.
+     *
+     * @param clientId идентификатор клиента
+     * @return строка сгенерированного Refresh-токена
+     */
     public String createRefreshToken(Long clientId) {
         tokenRepository.deleteByClientId(clientId);
         ClientRefreshToken newToken = new ClientRefreshToken();
@@ -41,6 +47,12 @@ public class ClientRefreshTokenService {
         return tokenRepository.save(newToken).getToken().toString();
     }
 
+    /**
+     * Находит данные Refresh-токена по его строковому представлению.
+     *
+     * @param token строковый идентификатор токена в формате UUID
+     * @return {@link Optional} с данными токена, или пустой, если токен не найден
+     */
     public Optional<ClientRefreshTokenDTO> findByToken(String token) {
         return tokenRepository.findById(UUID.fromString(token))
                 .map(entity -> ClientRefreshTokenDTO.builder()

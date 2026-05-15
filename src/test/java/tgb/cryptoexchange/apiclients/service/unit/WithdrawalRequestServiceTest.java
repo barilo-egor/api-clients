@@ -102,7 +102,7 @@ class WithdrawalRequestServiceTest {
         FieldNotBeEmptyException exception = assertThrows(FieldNotBeEmptyException.class, () ->
                 withdrawalRequestService.updateWithdrawalRequest(null, updateDto)
         );
-        assertEquals("Should not be empty.", exception.getMessage());
+        assertEquals("Should not be empty.", exception.getDescription());
         verifyNoInteractions(withdrawalRequestRepository);
     }
 
@@ -117,6 +117,6 @@ class WithdrawalRequestServiceTest {
         NotFoundException exception = assertThrows(NotFoundException.class, () ->
                 withdrawalRequestService.updateWithdrawalRequest(nonExistingId, updateDto)
         );
-        assertEquals("Record not found for the provided ID.", exception.getMessage());
+        assertEquals("Record not found for the provided ID.", exception.getDescription());
     }
 }

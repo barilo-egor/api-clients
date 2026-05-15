@@ -24,12 +24,19 @@ public class WithdrawalRequestService {
     private final ApplicationEventPublisher eventPublisher;
 
     public WithdrawalRequestService(WithdrawalRequestRepository withdrawalRequestRepository,
-                                    WithdrawalMapper mapper, @Autowired(required = false) ApplicationEventPublisher eventPublisher) {
+            WithdrawalMapper mapper, @Autowired(required = false) ApplicationEventPublisher eventPublisher) {
         this.withdrawalRequestRepository = withdrawalRequestRepository;
         this.mapper = mapper;
         this.eventPublisher = eventPublisher;
     }
 
+    /**
+     * Сохраняет заявку на вывод средств в базе данных и публикует событие.
+     * После успешного сохранения сущность конвертируется обратно в DTO
+     * и публикуется в {@link ApplicationEventPublisher} (если он инициализирован).
+     *
+     * @param withdrawalRequest DTO с данными заявки на вывод средств
+     */
     public void saveWithdrawalRequest(WithdrawalRequestDTO withdrawalRequest) {
         WithdrawalRequest saved = withdrawalRequestRepository.save(mapper.requestDTOToEntity(withdrawalRequest));
         WithdrawalRequestDTO dto = mapper.entityToDTO(saved);
@@ -38,6 +45,16 @@ public class WithdrawalRequestService {
         }
     }
 
+    /**
+     * Обновляет реквизиты кошелька и комментарий в существующей заявке на вывод средств.
+     * Метод выполняет поиск заявки в базе данных по её идентификатору и обновляет только
+     * разрешенные для изменения поля (кошелек и комментарий).
+     *
+     * @param id уникальный идентификатор изменяемой заявки
+     * @param withdrawalRequestDTO новые данные для обновления
+     * @throws FieldNotBeEmptyException если переданный идентификатор {@code id} равен {@code null}
+     * @throws NotFoundException если заявка с указанным {@code id} не найдена в системе
+     */
     public void updateWithdrawalRequest(Long id, WithdrawalRequestDTO withdrawalRequestDTO) {
         if (id == null) {
             throw new FieldNotBeEmptyException("id");
@@ -48,6 +65,5 @@ public class WithdrawalRequestService {
         withdrawalRequest.setWallet(withdrawalRequestDTO.getWallet());
         withdrawalRequest.setComment(withdrawalRequestDTO.getComment());
     }
-
 
 }

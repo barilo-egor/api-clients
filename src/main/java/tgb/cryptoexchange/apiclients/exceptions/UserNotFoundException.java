@@ -4,7 +4,7 @@ import lombok.Getter;
 import tgb.cryptoexchange.apiclients.enums.ErrorCode;
 
 @Getter
-public class UnauthorizedException extends RuntimeException implements CustomException {
+public class UserNotFoundException extends RuntimeException implements CustomException {
 
     private final ErrorCode errorCode;
 
@@ -12,9 +12,9 @@ public class UnauthorizedException extends RuntimeException implements CustomExc
 
     private final String description;
 
-    public UnauthorizedException(String message) {
-        super(message);
-        this.errorCode = ErrorCode.AUTH_DATA_INVALID;
+    public UserNotFoundException() {
+        super("User not found.");
+        this.errorCode = ErrorCode.NOT_FOUND;
         this.field = null;
         this.description = null;
     }

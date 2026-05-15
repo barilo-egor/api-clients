@@ -21,6 +21,12 @@ public class CookieService {
         this.refreshExpiration = refreshExpiration;
     }
 
+    /**
+     * Создает защищенную HTTP-only авторизационную cookie для Refresh-токена.
+     *
+     * @param refreshToken строка токена для сохранения в cookie
+     * @return настроенный объект {@link ResponseCookie}
+     */
     public ResponseCookie createRefreshTokenCookie(String refreshToken) {
         boolean isDev = Arrays.asList(env.getActiveProfiles()).contains("dev-web-app");
 

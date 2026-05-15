@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.ToString;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
 
+/**
+ * Данные клиента, идентифицированного по API-ключу.
+ */
 @Data
 @Builder
 public class ClientByApiKeyDTO {

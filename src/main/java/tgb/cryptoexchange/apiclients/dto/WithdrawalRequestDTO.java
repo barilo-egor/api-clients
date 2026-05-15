@@ -8,6 +8,9 @@ import tgb.cryptoexchange.apiclients.enums.WithdrawalRequestStatus;
 
 import java.time.Instant;
 
+/**
+ * @see tgb.cryptoexchange.apiclients.entity.WithdrawalRequest
+ */
 @Data
 @Builder
 @NoArgsConstructor

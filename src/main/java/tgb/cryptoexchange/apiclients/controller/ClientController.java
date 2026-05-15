@@ -12,6 +12,8 @@ import tgb.cryptoexchange.apiclients.dto.AuthRequest;
 import tgb.cryptoexchange.apiclients.dto.AuthResponse;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.TokenPair;
+import tgb.cryptoexchange.apiclients.exceptions.ClientAlreadyExistsException;
+import tgb.cryptoexchange.apiclients.exceptions.PasswordValidationException;
 import tgb.cryptoexchange.apiclients.exceptions.UnauthorizedException;
 import tgb.cryptoexchange.apiclients.service.AuthenticationManagerService;
 import tgb.cryptoexchange.apiclients.service.ClientService;
@@ -35,6 +37,13 @@ public class ClientController {
         this.cookieService = cookieService;
     }
 
+    /**
+     * Создает нового клиента в системе.
+     *
+     * @param request объект {@link ClientDTO} с данными клиента.
+     * @return {@link ResponseEntity} со статусом 200 (OK) и телом, содержащим данные созданного клиента.
+     * @throws ClientAlreadyExistsException, PasswordValidationException со статусом 400 (Bad Request).
+     */
     @PostMapping("/clients")
     public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO request) {
         ClientDTO savedClient = clientService.create(request);
