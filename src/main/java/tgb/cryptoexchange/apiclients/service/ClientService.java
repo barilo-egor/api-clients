@@ -42,7 +42,6 @@ public class ClientService {
 
     /**
      * Создает нового клиента.
-     * <p>
      * Метод хэширует пароль, сохраняет сущность в базу данных, а также
      * генерирует секретные ключи {@link GeneratedKeys} через {@link KeyManagementService}.
      *
@@ -68,7 +67,6 @@ public class ClientService {
 
     /**
      * Возвращает данные клиента по его API-ключу с расшифровкой secret.
-     * <p>
      * Метод хэширует входящий API-ключ по алгоритму SHA-256 для поиска в БД,
      * а затем расшифровывает защищенный секрет клиента с помощью AES-GCM.
      *
@@ -116,12 +114,12 @@ public class ClientService {
      *
      * @param id уникальный идентификатор клиента
      * @return {@link ClientDTO} с данными найденного клиента
-     * @throws NotFoundException если клиент с указанным ID не найден в системе
+     * @throws UserNotFoundException если клиент с указанным ID не найден в системе
      */
     public ClientDTO getClientById(Long id) {
         log.debug("Запрос client: id {}", id);
         Client client = clientRepository.findClientById(id)
-                .orElseThrow(() -> new NotFoundException(String.valueOf(id)));
+                .orElseThrow(UserNotFoundException::new);
         return clientMapper.clientToDTO(client);
     }
 

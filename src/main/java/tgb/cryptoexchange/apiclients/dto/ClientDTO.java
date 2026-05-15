@@ -24,6 +24,8 @@ public class ClientDTO {
     @ToString.Exclude
     private String apiKey;
 
+    private String apiKeyPreview;
+
     @ToString.Exclude
     private String secret;
 
@@ -33,4 +35,5 @@ public class ClientDTO {
 
     private String callbackUrl;
 
+    private Integer orderTimeoutSeconds;
 }

@@ -38,4 +38,12 @@ public class ClientGrpcService extends ClientsServiceGrpc.ClientsServiceImplBase
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void getClientById(GetClientByIdGrpc request,
+            StreamObserver<GetClientByIdResponseGrpc> responseObserver) {
+        ClientDTO clientDTO = clientService.getClientById(request.getId());
+        responseObserver.onNext(mapper.getClientByIdResponseGrpc(clientDTO));
+        responseObserver.onCompleted();
+    }
+
 }

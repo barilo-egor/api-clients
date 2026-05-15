@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
 import tgb.cryptoexchange.apiclients.service.KeyManagementService;
-import tgb.cryptoexchange.grpc.generated.ClientsServiceGrpc;
-import tgb.cryptoexchange.grpc.generated.CreateClientGrpc;
-import tgb.cryptoexchange.grpc.generated.CreateClientResponseGrpc;
-import tgb.cryptoexchange.grpc.generated.GetClientByApiKeyGrpc;
+import tgb.cryptoexchange.grpc.generated.*;
 
 import java.util.Optional;
 
@@ -144,7 +141,7 @@ class ClientsServiceIT extends BaseIntegrationTest {
 
     @Test
     @DisplayName("Cоздание клиента и получение по API Key")
-    void endToEnd_CreateAndGetClient() {
+    void createClient_getClientByApiKey() {
         var createRequest = CreateClientGrpc.newBuilder()
                 .setUsername("e2e_user")
                 .setPassword("StrongPassword123!")
@@ -163,6 +160,26 @@ class ClientsServiceIT extends BaseIntegrationTest {
         assertThat(getResponse.getUsername()).isEqualTo("e2e_user");
         assertThat(getResponse.getSecret()).isEqualTo(secretFromCreate);
         assertThat(getResponse.getStatus()).isEqualTo("ACTIVE");
+    }
+
+    @Test
+    @DisplayName("Получение по id")
+    void success_getClientById() {
+        Client client = clientRepository.save(Client.builder()
+                .username("test1")
+                .password("123")
+                .apiKey("qwerty")
+                .apiKeyPreview("qwe")
+                .secret("secret")
+                .status(ClientStatus.ACTIVE)
+                .build());
+
+        var getRequest = GetClientByIdGrpc.newBuilder()
+                .setId(client.getId())
+                .build();
+
+        var getResponse = blockingStub.getClientById(getRequest);
+        assertThat(getResponse.getUsername()).isEqualTo(client.getUsername());
     }
 
 }
