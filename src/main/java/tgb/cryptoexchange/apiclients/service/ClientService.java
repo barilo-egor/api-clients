@@ -11,7 +11,6 @@ import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
-import tgb.cryptoexchange.apiclients.enums.ErrorCode;
 import tgb.cryptoexchange.apiclients.exceptions.*;
 import tgb.cryptoexchange.apiclients.mapper.ClientMapper;
 import tgb.cryptoexchange.apiclients.repository.ClientRepository;
@@ -128,6 +127,18 @@ public class ClientService {
             throw new PasswordValidationException();
         }
         return passwordEncoder.encode(password);
+    }
+
+    /**
+     * Создает цифровую подпись для данных на основе секретного ключа клиента.
+     *
+     * @param clientId уникальный идентификатор клиента
+     * @param data     строка данных для подписания
+     * @return строковое представление подписи в формате HMAC-SHA256 (Hex)
+     */
+    public String createSignature(Long clientId, String data) {
+        String secret = getClientById(clientId).getSecret();
+        return keyManagementService.generateHmacSha256(data, secret);
     }
 
 }

@@ -182,4 +182,33 @@ class ClientsServiceIT extends BaseIntegrationTest {
         assertThat(getResponse.getUsername()).isEqualTo(client.getUsername());
     }
 
+    @Test
+    @DisplayName("Создание hmac256 подписи: успешный сценарий через gRPC")
+    void success_createSignature() {
+        Client client = clientRepository.save(Client.builder()
+                .username("test1")
+                .password("123")
+                .apiKey("qwerty")
+                .apiKeyPreview("qwe")
+                .secret("secret")
+                .status(ClientStatus.ACTIVE)
+                .build());
+
+        String testData = "test_data";
+        var getRequest = CreateSignatureGrpc.newBuilder()
+                .setClientId(client.getId())
+                .setData(testData)
+                .build();
+
+        String expectedHexSignature = "1108acad9bad25bfc7100fce7d515934b020de6d1ad51ac7be8844432afa7366";
+
+        var getResponse = blockingStub.createSignature(getRequest);
+
+        assertThat(getResponse).isNotNull();
+        assertThat(getResponse.getSignature())
+                .isNotBlank()
+                .isEqualTo(expectedHexSignature);
+        assertThat(getResponse.getSignature()).hasSize(64);
+    }
+
 }

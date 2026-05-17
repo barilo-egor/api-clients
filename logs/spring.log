@@ -468,3 +468,363 @@
 2026-05-15 14:05:17.660 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-05-15 14:05:17.670 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
 2026-05-15 14:05:17.693 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:30:38.388 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:30:38.718 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 312 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:30:43.868 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:30:46.168 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:30:46.396 [Test worker] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-17 14:30:50.020 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:30:52.002 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:30:52.326 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:30:52.328 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:30:52.328 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:30:52.328 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:30:52.328 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:30:52.627 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:30:55.472 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:30:55.488 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:38:37.432 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:38:37.702 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 249 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:38:41.817 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:38:43.582 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:38:43.804 [Test worker] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-17 14:38:47.027 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:38:48.778 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:38:49.034 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:38:49.036 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:38:49.036 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:38:49.036 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:38:49.036 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:38:49.309 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:38:50.260 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:50.280 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:38:50.282 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:50.282 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:50.285 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:38:50.301 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:38:50.730 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:38:50.751 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:38:51.211 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:38:51.280 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:38:52.103 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:38:52.570 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-05-17 14:38:52.570 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-05-17 14:38:52.578 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:38:52.593 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 23 ms
+2026-05-17 14:38:52.625 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:38:52.626 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:38:52.626 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:38:52.626 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:38:52.626 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:38:52.644 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:38:54.829 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:54.831 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:38:54.833 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:54.833 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:54.835 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:38:54.841 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:38:55.180 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:38:55.202 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:38:55.479 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:38:55.545 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:38:55.791 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:38:56.146 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:38:56.164 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:38:56.164 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:38:56.164 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:38:56.164 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:38:56.164 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:38:56.176 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:38:58.075 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:58.078 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:38:58.079 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:58.079 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:58.079 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:38:58.137 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:58.140 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:38:58.142 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:58.142 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:38:58.144 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:39:03.584 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:39:03.623 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:39:03.638 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:39:03.659 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:45:47.777 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:45:48.015 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 223 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:45:51.392 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:45:52.822 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:45:53.017 [Test worker] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-17 14:45:55.271 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:45:56.630 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:45:56.821 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:45:56.821 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:45:56.821 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:45:56.821 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:45:56.824 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:45:57.046 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:46:24.335 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:46:24.348 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:47:32.596 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:47:32.882 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 266 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:47:37.311 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:47:38.932 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:47:39.153 [Test worker] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-17 14:47:42.007 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:47:43.615 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:47:43.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:47:43.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:47:43.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:47:43.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:47:43.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:47:44.123 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:47:45.039 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:45.063 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:47:45.065 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:45.067 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:45.072 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:47:45.087 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:47:45.612 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:47:45.637 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:47:46.136 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:47:46.228 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:47:46.656 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:47:47.229 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-05-17 14:47:47.231 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-05-17 14:47:47.237 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:47:47.248 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 17 ms
+2026-05-17 14:47:47.277 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:47:47.277 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:47:47.278 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:47:47.278 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:47:47.278 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:47:47.298 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:47:49.868 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:49.872 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:47:49.874 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:49.874 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:49.874 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:47:49.882 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:47:50.307 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:47:50.330 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 22 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:47:50.736 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:47:50.820 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:47:51.181 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:47:51.626 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:47:51.651 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:47:51.651 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:47:51.651 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:47:51.651 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:47:51.651 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:47:51.673 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:47:53.797 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:53.800 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:47:53.801 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:53.802 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:53.804 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:47:53.858 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:53.861 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:47:53.861 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:53.863 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:47:53.865 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:48:00.089 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:48:00.129 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:48:00.153 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:48:00.189 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:50:03.872 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:50:04.074 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 190 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:50:07.352 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:50:08.643 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:50:08.792 [Test worker] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-17 14:50:10.829 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:50:11.994 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:50:12.162 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:50:12.162 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:50:12.162 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:50:12.162 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:50:12.162 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:50:12.347 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:50:13.104 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:13.118 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:50:13.118 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:13.118 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:13.128 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:50:13.140 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:50:13.495 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:50:13.513 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:50:13.885 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:50:13.975 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:50:14.447 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:50:14.860 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-05-17 14:50:14.860 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-05-17 14:50:14.866 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:50:14.874 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 14 ms
+2026-05-17 14:50:14.902 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:50:14.902 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:50:14.902 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:50:14.902 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:50:14.902 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:50:14.920 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:50:17.035 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:17.035 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:50:17.039 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:17.039 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:17.039 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:50:17.050 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:50:17.363 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:50:17.379 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:50:17.637 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:50:17.698 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:50:17.974 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:50:18.278 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:50:18.292 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:50:18.292 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:50:18.292 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:50:18.292 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:50:18.299 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:50:18.311 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:50:20.148 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:20.151 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:50:20.152 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:20.153 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:20.154 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:50:20.203 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:20.205 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:50:20.205 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:20.205 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:50:20.205 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:50:25.710 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:50:25.747 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:50:25.764 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:50:25.793 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:52:00.806 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:52:01.001 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 181 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:52:04.498 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:52:06.363 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:52:06.568 [Test worker] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-17 14:52:09.346 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:52:11.066 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:52:11.286 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:52:11.288 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:52:11.288 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:52:11.288 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:52:11.288 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:52:11.576 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:52:12.477 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:12.500 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:52:12.502 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:12.504 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:12.508 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:52:12.525 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:52:12.979 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:52:13.002 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 20 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:52:13.408 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:52:13.481 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:52:13.820 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:52:14.257 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-05-17 14:52:14.257 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-05-17 14:52:14.262 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:52:14.267 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 10 ms
+2026-05-17 14:52:14.298 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:52:14.298 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:52:14.298 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:52:14.298 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:52:14.298 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:52:14.319 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:52:16.607 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:16.611 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:52:16.611 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:16.611 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:16.615 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:52:16.620 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:52:16.981 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:52:17.002 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:52:17.355 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:52:17.428 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:52:17.718 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:52:18.076 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:52:18.097 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:52:18.099 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:52:18.099 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:52:18.099 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:52:18.099 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:52:18.115 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:52:20.131 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:20.134 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:52:20.135 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:20.136 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:20.138 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:52:20.191 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:20.194 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:52:20.195 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:20.195 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:52:20.197 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:52:25.658 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:52:25.734 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:52:25.759 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:52:25.781 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:56:21.236 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:56:21.407 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 159 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:56:24.247 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:56:25.323 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:56:25.469 [Test worker] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-17 14:56:27.452 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:56:28.685 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:56:28.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:56:28.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:56:28.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:56:28.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:56:28.879 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:56:29.066 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:56:29.700 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:29.715 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:56:29.717 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT]: ClientRestControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:29.719 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:29.722 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientRestControllerIT
+2026-05-17 14:56:29.731 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:56:30.049 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:56:30.099 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 42 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:56:30.416 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:56:30.480 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:56:30.743 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:56:31.104 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-05-17 14:56:31.104 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-05-17 14:56:31.108 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:56:31.113 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 9 ms
+2026-05-17 14:56:31.136 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:56:31.136 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:56:31.136 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:56:31.136 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:56:31.136 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:56:31.152 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:56:32.858 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:32.862 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:56:32.864 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT]: ClientsServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:32.864 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:32.864 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.ClientsServiceIT
+2026-05-17 14:56:32.864 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:56:33.153 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-17 14:56:33.166 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 3 JPA repository interfaces.
+2026-05-17 14:56:33.437 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-17 14:56:33.492 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:56:33.735 [Test worker] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-17 14:56:33.984 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-17 14:56:34.008 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: ClientsService
+2026-05-17 14:56:34.008 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: SecurityService
+2026-05-17 14:56:34.008 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: WithdrawalRequestService
+2026-05-17 14:56:34.008 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.reflection.v1.ServerReflection
+2026-05-17 14:56:34.008 [Test worker] INFO  o.s.g.server.NettyGrpcServerFactory - Registered gRPC service: grpc.health.v1.Health
+2026-05-17 14:56:34.025 [Test worker] INFO  o.s.g.s.l.GrpcServerLifecycle - gRPC Server started, listening on address: [/[0:0:0:0:0:0:0:0]:9090]
+2026-05-17 14:56:35.476 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:35.478 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:56:35.478 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT]: SecurityServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:35.478 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:35.481 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.SecurityServiceIT
+2026-05-17 14:56:35.527 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:35.529 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:56:35.530 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT]: WithdrawalIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:35.530 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [tgb.cryptoexchange.apiclients.service.integration.BaseIntegrationTest]: BaseIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-17 14:56:35.532 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration tgb.cryptoexchange.apiclients.ApiClientsApplication for test class tgb.cryptoexchange.apiclients.service.integration.WithdrawalIT
+2026-05-17 14:56:40.131 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:56:40.164 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-17 14:56:40.180 [SpringApplicationShutdownHook] INFO  o.s.g.s.l.GrpcServerLifecycle - Completed gRPC server shutdown
+2026-05-17 14:56:40.208 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'

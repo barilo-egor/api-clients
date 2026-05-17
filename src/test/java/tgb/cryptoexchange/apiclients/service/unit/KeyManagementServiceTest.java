@@ -1,12 +1,8 @@
 package tgb.cryptoexchange.apiclients.service.unit;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,8 +10,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.exceptions.BaseException;
-import tgb.cryptoexchange.apiclients.exceptions.GrpcValidationException;
+import tgb.cryptoexchange.apiclients.exceptions.FieldNotBeEmptyException;
 import tgb.cryptoexchange.apiclients.service.KeyManagementService;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class KeyManagementServiceTest {
@@ -35,10 +38,7 @@ class KeyManagementServiceTest {
         byte[] originalData = "secret-payload-data".getBytes(StandardCharsets.UTF_8);
 
         String encryptedBase64 = keyManagementService.encryptAesGcm(originalData);
-        String decryptedBase64 = keyManagementService.decryptAesGcm(encryptedBase64);
-
-        byte[] decryptedBytes = Base64.getDecoder().decode(decryptedBase64);
-        String resultString = new String(decryptedBytes, StandardCharsets.UTF_8);
+        String resultString = keyManagementService.decryptAesGcm(encryptedBase64);
 
         assertNotNull(encryptedBase64);
         assertNotEquals(Base64.getEncoder().encodeToString(originalData), encryptedBase64);
@@ -91,5 +91,32 @@ class KeyManagementServiceTest {
 
         assertNotNull(resultHash);
         assertEquals(expectedHash, resultHash);
+    }
+
+    @Test
+    @DisplayName("Успешная генерация HMAC-SHA256 подписи для валидных данных")
+    void shouldGenerateCorrectHmacSha256() {
+        String data = "test_data";
+        String secret = "secret";
+        String expectedHex = "1108acad9bad25bfc7100fce7d515934b020de6d1ad51ac7be8844432afa7366";
+
+        String actualSignature = keyManagementService.generateHmacSha256(data, secret);
+
+        assertThat(actualSignature)
+                .isNotBlank()
+                .hasSize(64)
+                .isEqualTo(expectedHex);
+    }
+
+    @Test
+    @DisplayName("Выброс IllegalArgumentException, если входные данные равны null")
+    void shouldThrowExceptionWhenDataOrSecretIsNull() {
+        assertThatThrownBy(() -> keyManagementService.generateHmacSha256(null, "secret"))
+                .as("Should not be empty.")
+                .isInstanceOf(FieldNotBeEmptyException.class);
+
+        assertThatThrownBy(() -> keyManagementService.generateHmacSha256("data", null))
+                .as("Should not be empty.")
+                .isInstanceOf(FieldNotBeEmptyException.class);
     }
 }

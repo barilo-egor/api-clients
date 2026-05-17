@@ -31,6 +31,11 @@ service ClientsService {
   * При отсутствии клиента возвращает gRPC-код NOT_FOUND_VALUE (Код 5).
   */
   rpc GetClientById (GetClientByIdGrpc) returns (GetClientByIdResponseGrpc);
+
+  /**
+  * Запрос на создание цифровой подписи данных.
+  */
+  rpc CreateSignature (CreateSignatureGrpc) returns (CreateSignatureResponseGrpc);
 }
 
 /**
@@ -94,7 +99,14 @@ message GetClientByIdResponseGrpc {
   int32 order_timeout_seconds = 7;
 }
 
-message createSignatureGrpc
+message CreateSignatureGrpc{
+  int64 client_id = 1 [(buf.validate.field).int64.gt = 0];
+  string data = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+message CreateSignatureResponseGrpc{
+  string signature = 1;
+}
 
 message CreateWithdrawalRequestGrpc{
   int64 client_id = 1 [(buf.validate.field).int64.gt = 0];

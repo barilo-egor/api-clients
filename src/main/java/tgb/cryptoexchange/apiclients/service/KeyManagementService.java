@@ -6,17 +6,22 @@ import org.springframework.stereotype.Service;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.exceptions.BaseException;
+import tgb.cryptoexchange.apiclients.exceptions.FieldNotBeEmptyException;
 
 import javax.crypto.Cipher;
+import javax.crypto.Mac;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HexFormat;
+
+import static javax.xml.crypto.dsig.SignatureMethod.HMAC_SHA256;
 
 @Service
 @Slf4j
@@ -52,7 +57,7 @@ public class KeyManagementService {
         byte[] rawSecret = new byte[32];
         secureRandom.nextBytes(rawSecret);
         String rawSecretForClient = Base64.getEncoder().encodeToString(rawSecret);
-        client.setSecret(encryptAesGcm(rawSecret));
+        client.setSecret(encryptAesGcm(rawSecretForClient.getBytes(StandardCharsets.UTF_8)));
         return new GeneratedKeys(rawApiKey, rawSecretForClient);
     }
 
@@ -80,7 +85,7 @@ public class KeyManagementService {
      * и зашифрованный текст. Расшифровка выполняется мастер-ключом с длиной тега аутентификации 128 бит.
      *
      * @param encryptedSecret зашифрованный секрет в формате Base64 (IV + CipherText)
-     * @return расшифрованный секрет в формате Base64
+     * @return расшифрованный секрет
      * @throws BaseException если произошла ошибка декодирования, неверный ключ или повреждены данные (AEAD-аутентификация провалена)
      */
     public String decryptAesGcm(String encryptedSecret) {
@@ -97,7 +102,7 @@ public class KeyManagementService {
 
             cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmSpec);
             byte[] decryptedBytes = cipher.doFinal(cipherText);
-            return Base64.getEncoder().encodeToString(decryptedBytes);
+            return new String(decryptedBytes, StandardCharsets.UTF_8);
 
         } catch (Exception e) {
             throw new BaseException("Failed to decrypt secret");
@@ -146,6 +151,35 @@ public class KeyManagementService {
         java.util.zip.CRC32 crc = new java.util.zip.CRC32();
         crc.update(input.getBytes(StandardCharsets.UTF_8));
         return Long.toHexString(crc.getValue());
+    }
+
+    /**
+     * Генерирует цифровую подпись HMAC-SHA256 в формате Hex.
+     *
+     * @param data   исходные данные для подписания
+     * @param secret секретный ключ клиента
+     * @return строковое представление подписи в шестнадцатеричном формате (Hex)
+     * @throws FieldNotBeEmptyException если data или secret равны null
+     * @throws BaseException            при критических ошибках инициализации алгоритма
+     */
+    public String generateHmacSha256(String data, String secret) {
+        if (data == null || secret == null) {
+            throw new FieldNotBeEmptyException("Data and secret");
+        }
+        try {
+            Mac mac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKey = new SecretKeySpec(
+                    secret.getBytes(StandardCharsets.UTF_8),
+                    HMAC_SHA256
+            );
+            mac.init(secretKey);
+
+            byte[] rawHmac = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+            return HexFormat.of().formatHex(rawHmac);
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            log.error("HMAC algorithm not available", e);
+            throw new BaseException("Failed to generate data signature.");
+        }
     }
 
 }
