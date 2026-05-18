@@ -81,7 +81,7 @@ public class ClientMapper {
         return GetClientByIdResponseGrpc.newBuilder()
                 .setId(clientDTO.getId())
                 .setUsername(Objects.requireNonNullElse(clientDTO.getUsername(), ""))
-                .setApiKeyPreview(Objects.requireNonNullElse(clientDTO.getApiKey(), ""))
+                .setApiKeyPreview(Objects.requireNonNullElse(clientDTO.getApiKeyPreview(), ""))
                 .setRegisteredAt(clientDTO.getRegisteredAt() != null
                         ? instantToTimestamp(clientDTO.getRegisteredAt())
                         : Timestamp.getDefaultInstance())
