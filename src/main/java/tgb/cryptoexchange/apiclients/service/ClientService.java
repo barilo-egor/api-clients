@@ -137,6 +137,7 @@ public class ClientService {
      * @return строковое представление подписи в формате HMAC-SHA256 (Hex)
      */
     public String createSignature(Long clientId, String data) {
+        log.debug("Запрос подписи клиента: id {}, data {}", clientId, data);
         String secret = getClientById(clientId).getSecret();
         return clientCredentialsService.generateHmacSha256(data, secret);
     }

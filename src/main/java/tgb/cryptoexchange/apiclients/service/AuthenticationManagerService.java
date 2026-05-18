@@ -42,11 +42,17 @@ public class AuthenticationManagerService {
         ClientDTO clientDTO;
 
         if (request.password() != null) {
+            log.info("Попытка аутентификации по паролю для username: '{}'", request.username());
             clientDTO = clientService.getClientByUsername(request.username());
             if (!passwordEncoder.matches(request.password(), clientDTO.getPassword())) {
+                log.warn("Authentication failed: invalid password for username: '{}'", request.username());
                 throw new UnauthorizedException("Invalid password");
             }
         } else {
+            String tokenPreview = request.refreshToken() != null && request.refreshToken().length() > 6
+                ? request.refreshToken().substring(0, 6) + "..."
+                : "invalid";
+            log.info("Попытка аутентификации по токену: '{}'", tokenPreview);
             ClientRefreshTokenDTO dbToken = tokenService.findByToken(request.refreshToken())
                     .filter(t -> t.getExpiresAt().isAfter(Instant.now()))
                     .orElseThrow(() -> new UnauthorizedException("Invalid or expired refresh token"));
@@ -54,7 +60,8 @@ public class AuthenticationManagerService {
         }
         String access = jwtService.generateAccessToken(clientDTO);
         String refreshToken = tokenService.createRefreshToken(clientDTO.getId());
-
+        log.info("Успешная аутентификация пользователя'{}' (ID: {}).",
+                clientDTO.getUsername(), clientDTO.getId());
         return new TokenPair(access, refreshToken);
     }
 
