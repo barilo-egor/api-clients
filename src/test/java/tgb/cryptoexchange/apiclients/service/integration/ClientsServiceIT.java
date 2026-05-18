@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.enums.ClientStatus;
-import tgb.cryptoexchange.apiclients.service.KeyManagementService;
+import tgb.cryptoexchange.apiclients.service.ClientCredentialsService;
 import tgb.cryptoexchange.grpc.generated.*;
 
 import java.util.Optional;
@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 class ClientsServiceIT extends BaseIntegrationTest {
 
     @Autowired
-    private KeyManagementService keyManagementService;
+    private ClientCredentialsService clientCredentialsService;
 
     private ClientsServiceGrpc.ClientsServiceBlockingStub blockingStub;
 
@@ -133,7 +133,7 @@ class ClientsServiceIT extends BaseIntegrationTest {
 
         assertThat(response.getSecret()).isNotEqualTo(savedClient.getSecret());
 
-        String decryptedSecretFromDb = keyManagementService.decryptAesGcm(savedClient.getSecret());
+        String decryptedSecretFromDb = clientCredentialsService.decryptAesGcm(savedClient.getSecret());
 
         assertThat(response.getSecret()).isEqualTo(decryptedSecretFromDb);
         assertThat(response.getSecret()).hasSizeGreaterThan(40);

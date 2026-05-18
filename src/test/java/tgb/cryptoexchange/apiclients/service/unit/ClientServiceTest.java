@@ -23,7 +23,7 @@ import tgb.cryptoexchange.apiclients.exceptions.*;
 import tgb.cryptoexchange.apiclients.mapper.ClientMapper;
 import tgb.cryptoexchange.apiclients.repository.ClientRepository;
 import tgb.cryptoexchange.apiclients.service.ClientService;
-import tgb.cryptoexchange.apiclients.service.KeyManagementService;
+import tgb.cryptoexchange.apiclients.service.ClientCredentialsService;
 
 @ExtendWith(MockitoExtension.class)
 class ClientServiceTest {
@@ -32,7 +32,7 @@ class ClientServiceTest {
     private ClientRepository clientRepository;
 
     @Mock
-    private KeyManagementService keyManagementService;
+    private ClientCredentialsService clientCredentialsService;
 
     @Mock
     private ClientMapper clientMapper;
@@ -54,7 +54,7 @@ class ClientServiceTest {
         when(clientRepository.existsByUsername("new_user")).thenReturn(false);
         when(passwordEncoder.encode("Valid123!")).thenReturn("encoded_pass");
         when(clientRepository.save(any(Client.class))).thenReturn(savedClient);
-        when(keyManagementService.generateApiSecret(any(Client.class))).thenReturn(generatedKeys);
+        when(clientCredentialsService.generateApiSecret(any(Client.class))).thenReturn(generatedKeys);
         when(clientMapper.createdClientToDTO(savedClient, generatedKeys)).thenReturn(expectedDto);
 
         ClientDTO result = clientService.create(inputDto);
@@ -93,7 +93,7 @@ class ClientServiceTest {
         when(clientRepository.existsByUsername("user")).thenReturn(false);
 
         assertThrows(PasswordValidationException.class, () -> clientService.create(inputDto));
-        verifyNoInteractions(passwordEncoder, keyManagementService);
+        verifyNoInteractions(passwordEncoder, clientCredentialsService);
     }
 
     @Test
@@ -104,9 +104,9 @@ class ClientServiceTest {
         Client client = Client.builder().id(1L).apiKey(hashedKey).secret("encrypted_secret").build();
         ClientByApiKeyDTO expectedDto = ClientByApiKeyDTO.builder().build();
 
-        when(keyManagementService.hashSha256(rawApiKey)).thenReturn(hashedKey);
+        when(clientCredentialsService.hashSha256(rawApiKey)).thenReturn(hashedKey);
         when(clientRepository.findByApiKey(hashedKey)).thenReturn(Optional.of(client));
-        when(keyManagementService.decryptAesGcm("encrypted_secret")).thenReturn("decrypted_secret");
+        when(clientCredentialsService.decryptAesGcm("encrypted_secret")).thenReturn("decrypted_secret");
         when(clientMapper.getClientByApiKeyDTO(client, "decrypted_secret")).thenReturn(expectedDto);
 
         ClientByApiKeyDTO result = clientService.getClientByApiKey(rawApiKey);
@@ -129,7 +129,7 @@ class ClientServiceTest {
     void should_throwInvalidUserNotFoundException_when_clientNotFoundByApiKey() {
         String rawApiKey = "unknown_key";
         String hashedKey = "hashed_unknown_key";
-        when(keyManagementService.hashSha256(rawApiKey)).thenReturn(hashedKey);
+        when(clientCredentialsService.hashSha256(rawApiKey)).thenReturn(hashedKey);
         when(clientRepository.findByApiKey(hashedKey)).thenReturn(Optional.empty());
 
         assertThrows(UserNotFoundException.class, () -> clientService.getClientByApiKey(rawApiKey));

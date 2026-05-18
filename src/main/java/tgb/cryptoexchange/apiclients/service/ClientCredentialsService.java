@@ -25,7 +25,7 @@ import static javax.xml.crypto.dsig.SignatureMethod.HMAC_SHA256;
 
 @Service
 @Slf4j
-public class KeyManagementService {
+public class ClientCredentialsService {
 
     private final String masterKey;
 
@@ -33,7 +33,7 @@ public class KeyManagementService {
 
     private final SecureRandom secureRandom = new SecureRandom();
 
-    public KeyManagementService(@Value("${secrets.master-key}") String masterKey) {
+    public ClientCredentialsService(@Value("${secrets.master-key}") String masterKey) {
         this.masterKey = masterKey;
     }
 

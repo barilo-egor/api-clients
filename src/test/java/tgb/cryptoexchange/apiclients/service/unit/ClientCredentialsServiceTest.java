@@ -11,7 +11,7 @@ import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
 import tgb.cryptoexchange.apiclients.exceptions.BaseException;
 import tgb.cryptoexchange.apiclients.exceptions.FieldNotBeEmptyException;
-import tgb.cryptoexchange.apiclients.service.KeyManagementService;
+import tgb.cryptoexchange.apiclients.service.ClientCredentialsService;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -21,15 +21,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class KeyManagementServiceTest {
+class ClientCredentialsServiceTest {
 
     @InjectMocks
-    private KeyManagementService keyManagementService;
+    private ClientCredentialsService clientCredentialsService;
 
     @BeforeEach
     void setUp() {
         String testMasterKey = "1234567890121234";
-        ReflectionTestUtils.setField(keyManagementService, "masterKey", testMasterKey);
+        ReflectionTestUtils.setField(clientCredentialsService, "masterKey", testMasterKey);
     }
 
     @Test
@@ -37,8 +37,8 @@ class KeyManagementServiceTest {
     void should_encryptAndDecryptSuccessfully_when_validDataProvided() {
         byte[] originalData = "secret-payload-data".getBytes(StandardCharsets.UTF_8);
 
-        String encryptedBase64 = keyManagementService.encryptAesGcm(originalData);
-        String resultString = keyManagementService.decryptAesGcm(encryptedBase64);
+        String encryptedBase64 = clientCredentialsService.encryptAesGcm(originalData);
+        String resultString = clientCredentialsService.decryptAesGcm(encryptedBase64);
 
         assertNotNull(encryptedBase64);
         assertNotEquals(Base64.getEncoder().encodeToString(originalData), encryptedBase64);
@@ -51,7 +51,7 @@ class KeyManagementServiceTest {
         String corruptedCipher = Base64.getEncoder().encodeToString("bad-data-not-gcm-format".getBytes());
 
         assertThrows(BaseException.class, () ->
-                keyManagementService.decryptAesGcm(corruptedCipher)
+                clientCredentialsService.decryptAesGcm(corruptedCipher)
         );
     }
 
@@ -59,7 +59,7 @@ class KeyManagementServiceTest {
     @DisplayName("Генерация secret корректно заполняет поля сущности Client и возвращает ключи")
     void should_populateClientFieldsAndReturnKeys_when_generatingSecret() {
         Client client = new Client();
-        GeneratedKeys generatedKeys = keyManagementService.generateApiSecret(client);
+        GeneratedKeys generatedKeys = clientCredentialsService.generateApiSecret(client);
 
         assertNotNull(generatedKeys);
         assertNotNull(generatedKeys.key());
@@ -77,7 +77,7 @@ class KeyManagementServiceTest {
 
         assertNotNull(client.getSecret());
 
-        String decryptedSecretFromClient = keyManagementService.decryptAesGcm(client.getSecret());
+        String decryptedSecretFromClient = clientCredentialsService.decryptAesGcm(client.getSecret());
         assertEquals(generatedKeys.secret(), decryptedSecretFromClient);
     }
 
@@ -87,7 +87,7 @@ class KeyManagementServiceTest {
         String apiKey = "tgb_testkey_12345";
         String expectedHash = "0a2729db25cf27b5f1048bf5ef4e3b7d353b5f86b25edfdebc336a8e33a8702e";
 
-        String resultHash = keyManagementService.hashSha256(apiKey);
+        String resultHash = clientCredentialsService.hashSha256(apiKey);
 
         assertNotNull(resultHash);
         assertEquals(expectedHash, resultHash);
@@ -100,7 +100,7 @@ class KeyManagementServiceTest {
         String secret = "secret";
         String expectedHex = "1108acad9bad25bfc7100fce7d515934b020de6d1ad51ac7be8844432afa7366";
 
-        String actualSignature = keyManagementService.generateHmacSha256(data, secret);
+        String actualSignature = clientCredentialsService.generateHmacSha256(data, secret);
 
         assertThat(actualSignature)
                 .isNotBlank()
@@ -111,11 +111,11 @@ class KeyManagementServiceTest {
     @Test
     @DisplayName("Выброс IllegalArgumentException, если входные данные равны null")
     void shouldThrowExceptionWhenDataOrSecretIsNull() {
-        assertThatThrownBy(() -> keyManagementService.generateHmacSha256(null, "secret"))
+        assertThatThrownBy(() -> clientCredentialsService.generateHmacSha256(null, "secret"))
                 .as("Should not be empty.")
                 .isInstanceOf(FieldNotBeEmptyException.class);
 
-        assertThatThrownBy(() -> keyManagementService.generateHmacSha256("data", null))
+        assertThatThrownBy(() -> clientCredentialsService.generateHmacSha256("data", null))
                 .as("Should not be empty.")
                 .isInstanceOf(FieldNotBeEmptyException.class);
     }

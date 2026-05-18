@@ -27,14 +27,14 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
-    private final KeyManagementService keyManagementService;
+    private final ClientCredentialsService clientCredentialsService;
 
     private final ClientMapper clientMapper;
 
-    public ClientService(ClientRepository clientRepository, KeyManagementService keyManagementService,
+    public ClientService(ClientRepository clientRepository, ClientCredentialsService clientCredentialsService,
             ClientMapper clientMapper, PasswordEncoder passwordEncoder) {
         this.clientRepository = clientRepository;
-        this.keyManagementService = keyManagementService;
+        this.clientCredentialsService = clientCredentialsService;
         this.clientMapper = clientMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -42,7 +42,7 @@ public class ClientService {
     /**
      * Создает нового клиента.
      * Метод хэширует пароль, сохраняет сущность в базу данных, а также
-     * генерирует секретные ключи {@link GeneratedKeys} через {@link KeyManagementService}.
+     * генерирует секретные ключи {@link GeneratedKeys} через {@link ClientCredentialsService}.
      *
      * @param clientDTO данные для создания нового клиента
      * @return {@link ClientDTO} созданного клиента
@@ -57,7 +57,7 @@ public class ClientService {
         }
         final String encryptedPassword = validateAndHashPassword(clientDTO.getPassword());
         Client client = Client.builder().username(clientDTO.getUsername()).password(encryptedPassword).build();
-        GeneratedKeys generatedKeys = keyManagementService.generateApiSecret(client);
+        GeneratedKeys generatedKeys = clientCredentialsService.generateApiSecret(client);
         client.setStatus(ClientStatus.ACTIVE);
         client = clientRepository.save(client);
         log.debug("Создан клиент client: {}", clientDTO);
@@ -82,7 +82,7 @@ public class ClientService {
             if (apiKey == null || apiKey.isBlank()) {
                 throw new InvalidApiKeyException();
             }
-            hashedApiKey = keyManagementService.hashSha256(apiKey);
+            hashedApiKey = clientCredentialsService.hashSha256(apiKey);
         } catch (BaseException e) {
             throw new InvalidApiKeyException();
         }
@@ -90,7 +90,7 @@ public class ClientService {
         Client client = clientRepository.findByApiKey(hashedApiKey)
                 .orElseThrow(UserNotFoundException::new);
         log.debug("Найден client: id {}, apiKey {}, secret {}", client.getId(), client.getApiKey(), client.getSecret());
-        String decryptedSecret = keyManagementService.decryptAesGcm(client.getSecret());
+        String decryptedSecret = clientCredentialsService.decryptAesGcm(client.getSecret());
         return clientMapper.getClientByApiKeyDTO(client, decryptedSecret);
     }
 
@@ -138,7 +138,7 @@ public class ClientService {
      */
     public String createSignature(Long clientId, String data) {
         String secret = getClientById(clientId).getSecret();
-        return keyManagementService.generateHmacSha256(data, secret);
+        return clientCredentialsService.generateHmacSha256(data, secret);
     }
 
 }
