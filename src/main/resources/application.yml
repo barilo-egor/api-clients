@@ -1,15 +1,5 @@
 spring:
   application:
     name: "api-clients"
-secrets:
-  master-key: "master-key"
-  jwt:
-    private: "jwt-private"
-    public: "jwt-public"
-    version: "jwt-version"
-    ttl-seconds: "jwt-ttl-seconds"
-    refresh-ttl-seconds: "jwt-refresh-ttl-seconds"
-kafka:
-  topic:
-    api-clients:
-      receive: "api-clients-receive"
+  config:
+    import: "file:config/config.yml"
