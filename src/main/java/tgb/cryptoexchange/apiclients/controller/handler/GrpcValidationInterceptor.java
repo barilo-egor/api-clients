@@ -24,97 +24,122 @@ public class GrpcValidationInterceptor implements ServerInterceptor {
     @Override
     public <R, T> ServerCall.Listener<R> interceptCall(
             ServerCall<R, T> call, Metadata headers, ServerCallHandler<R, T> next) {
-        return new ServerCall.Listener<R>() {
-            private ServerCall.Listener<R> delegate = null;
+        return new ValidatingServerCallListener<>(call, headers, next);
+    }
 
-            private boolean closed = false;
+    private class ValidatingServerCallListener<R, T> extends ServerCall.Listener<R> {
 
-            @Override
-            public void onMessage(R message) {
-                if (closed)
-                    return;
+        private final ServerCall<R, T> call;
 
-                if (message instanceof Message protobufMessage) {
-                    try {
-                        ValidationResult result = validator.validate(protobufMessage);
+        private final Metadata headers;
 
-                        if (!result.isSuccess()) {
-                            BadRequest.Builder badRequestBuilder = BadRequest.newBuilder();
-                            for (Violation violation : result.toProto().getViolationsList()) {
-                                badRequestBuilder.addFieldViolations(
-                                        BadRequest.FieldViolation.newBuilder()
-                                                .setField(violation.getField().toString())
-                                                .setDescription(violation.getMessage())
-                                                .build()
-                                );
-                            }
+        private final ServerCallHandler<R, T> next;
 
-                            closeWithValidationError(call, Code.INVALID_ARGUMENT,
-                                    "Ошибка валидации входных параметров", Any.pack(badRequestBuilder.build()));
-                            return;
-                        }
+        private ServerCall.Listener<R> delegate = null;
 
-                    } catch (build.buf.protovalidate.exceptions.ValidationException e) {
-                        closeWithError(call, Code.INTERNAL, "Внутренняя ошибка проверки контракта");
-                        return;
-                    }
+        private boolean closed = false;
+
+        public ValidatingServerCallListener(ServerCall<R, T> call, Metadata headers, ServerCallHandler<R, T> next) {
+            this.call = call;
+            this.headers = headers;
+            this.next = next;
+        }
+
+        @Override
+        public void onMessage(R message) {
+            if (closed) {
+                return;
+            }
+
+            if (message instanceof Message protobufMessage && !processValidation(protobufMessage)) {
+                return;
+            }
+
+            ensureDelegateStarted();
+            delegate.onMessage(message);
+        }
+
+        @Override
+        public void onHalfClose() {
+            if (!closed && delegate != null) {
+                delegate.onHalfClose();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            if (delegate != null) {
+                delegate.onCancel();
+            }
+        }
+
+        @Override
+        public void onComplete() {
+            if (delegate != null) {
+                delegate.onComplete();
+            }
+        }
+
+        @Override
+        public void onReady() {
+            if (delegate != null) {
+                delegate.onReady();
+            } else {
+                call.request(1);
+            }
+        }
+
+        private boolean processValidation(Message protobufMessage) {
+            try {
+                ValidationResult result = validator.validate(protobufMessage);
+                if (result.isSuccess()) {
+                    return true;
                 }
-                if (delegate == null) {
-                    delegate = next.startCall(call, headers);
-                }
-                delegate.onMessage(message);
+
+                handleValidationViolations(result);
+                return false;
+
+            } catch (build.buf.protovalidate.exceptions.ValidationException e) {
+                closeWithRpcError(Code.INTERNAL, "Внутренняя ошибка проверки контракта", null);
+                return false;
+            }
+        }
+
+        private void handleValidationViolations(ValidationResult result) {
+            BadRequest.Builder badRequestBuilder = BadRequest.newBuilder();
+            for (Violation violation : result.toProto().getViolationsList()) {
+                badRequestBuilder.addFieldViolations(
+                        BadRequest.FieldViolation.newBuilder()
+                                .setField(violation.getField().toString())
+                                .setDescription(violation.getMessage())
+                                .build()
+                );
             }
 
-            @Override
-            public void onHalfClose() {
-                if (closed)
-                    return;
-                if (delegate != null)
-                    delegate.onHalfClose();
+            closeWithRpcError(Code.INVALID_ARGUMENT, "Ошибка валидации входных параметров",
+                    Any.pack(badRequestBuilder.build()));
+        }
+
+        private void ensureDelegateStarted() {
+            if (delegate == null) {
+                delegate = next.startCall(call, headers);
+            }
+        }
+
+        private void closeWithRpcError(Code code, String message, Any details) {
+            closed = true;
+            com.google.rpc.Status.Builder statusBuilder = com.google.rpc.Status.newBuilder()
+                    .setCode(code.getNumber())
+                    .setMessage(message);
+
+            if (details != null) {
+                statusBuilder.addDetails(details);
             }
 
-            @Override
-            public void onCancel() {
-                if (delegate != null)
-                    delegate.onCancel();
-            }
+            StatusRuntimeException out = StatusProto.toStatusRuntimeException(statusBuilder.build());
+            call.close(out.getStatus(), out.getTrailers());
+        }
 
-            @Override
-            public void onComplete() {
-                if (delegate != null)
-                    delegate.onComplete();
-            }
-
-            @Override
-            public void onReady() {
-                if (delegate != null) {
-                    delegate.onReady();
-                } else {
-                    call.request(1);
-                }
-            }
-
-            private void closeWithValidationError(ServerCall<R, T> call, Code code, String message, Any details) {
-                closed = true;
-                com.google.rpc.Status rpcStatus = com.google.rpc.Status.newBuilder()
-                        .setCode(code.getNumber())
-                        .setMessage(message)
-                        .addDetails(details)
-                        .build();
-                StatusRuntimeException out = StatusProto.toStatusRuntimeException(rpcStatus);
-                call.close(out.getStatus(), out.getTrailers());
-            }
-
-            private void closeWithError(ServerCall<R, T> call, Code code, String message) {
-                closed = true;
-                com.google.rpc.Status rpcStatus = com.google.rpc.Status.newBuilder()
-                        .setCode(code.getNumber())
-                        .setMessage(message)
-                        .build();
-                StatusRuntimeException out = StatusProto.toStatusRuntimeException(rpcStatus);
-                call.close(out.getStatus(), out.getTrailers());
-            }
-        };
     }
 
 }
