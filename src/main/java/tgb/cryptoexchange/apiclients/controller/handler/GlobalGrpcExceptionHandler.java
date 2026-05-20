@@ -69,7 +69,11 @@ public class GlobalGrpcExceptionHandler implements ServerInterceptor {
                     .asRuntimeException();
         }
         }
-        call.close(out.getStatus(), out.getTrailers());
+        Metadata trailers = out.getTrailers();
+        if (trailers == null) {
+            trailers = new Metadata();
+        }
+        call.close(out.getStatus(), trailers);
     }
 
     private StatusRuntimeException buildStatus(com.google.rpc.Code code, String message,
