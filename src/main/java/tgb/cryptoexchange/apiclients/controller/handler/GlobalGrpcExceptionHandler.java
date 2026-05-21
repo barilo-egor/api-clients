@@ -82,15 +82,13 @@ public class GlobalGrpcExceptionHandler implements ServerInterceptor {
                 .setCode(code.getNumber())
                 .setMessage(message);
 
-        if (field != null && description != null) {
-            com.google.rpc.BadRequest badRequest = com.google.rpc.BadRequest.newBuilder()
-                    .addFieldViolations(com.google.rpc.BadRequest.FieldViolation.newBuilder()
-                            .setField(field)
-                            .setDescription(description)
-                            .build())
-                    .build();
-            statusBuilder.addDetails(com.google.protobuf.Any.pack(badRequest));
-        }
+        com.google.rpc.BadRequest badRequest = com.google.rpc.BadRequest.newBuilder()
+                .addFieldViolations(com.google.rpc.BadRequest.FieldViolation.newBuilder()
+                        .setField(field != null ? field : "")
+                        .setDescription(description != null ? description : "")
+                        .build())
+                .build();
+        statusBuilder.addDetails(com.google.protobuf.Any.pack(badRequest));
         return StatusProto.toStatusRuntimeException(statusBuilder.build());
     }
 
