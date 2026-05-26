@@ -1,12 +1,14 @@
 package tgb.cryptoexchange.apiclients.exceptions;
 
+import com.google.rpc.Code;
 import lombok.Getter;
-import tgb.cryptoexchange.apiclients.enums.ErrorCode;
+
+import static com.google.rpc.Code.INVALID_ARGUMENT;
 
 @Getter
 public class InvalidApiKeyException extends RuntimeException implements CustomException {
 
-    private final ErrorCode errorCode;
+    private final Code errorCode;
 
     private final String field;
 
@@ -15,7 +17,7 @@ public class InvalidApiKeyException extends RuntimeException implements CustomEx
     public InvalidApiKeyException() {
         super("User not found.");
         this.field = "apiKey";
-        this.errorCode = ErrorCode.INVALID_ARGUMENT;
+        this.errorCode = INVALID_ARGUMENT;
         this.description = "ApiKey is invalid.";
     }
 

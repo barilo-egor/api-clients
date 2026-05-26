@@ -7,7 +7,6 @@ import tgb.cryptoexchange.apiclients.dto.AuthRequest;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.ClientRefreshTokenDTO;
 import tgb.cryptoexchange.apiclients.dto.TokenPair;
-import tgb.cryptoexchange.apiclients.enums.ErrorCode;
 import tgb.cryptoexchange.apiclients.exceptions.UnauthorizedException;
 
 import java.time.Instant;

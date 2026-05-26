@@ -1,12 +1,14 @@
 package tgb.cryptoexchange.apiclients.exceptions;
 
+import com.google.rpc.Code;
 import lombok.Getter;
-import tgb.cryptoexchange.apiclients.enums.ErrorCode;
+
+import static com.google.rpc.Code.NOT_FOUND;
 
 @Getter
 public class NotFoundException extends RuntimeException implements CustomException {
 
-    private final ErrorCode errorCode;
+    private final Code errorCode;
 
     private final String field;
 
@@ -15,7 +17,7 @@ public class NotFoundException extends RuntimeException implements CustomExcepti
     public NotFoundException(final String field) {
         super("Bad request.");
         this.field = field;
-        this.errorCode = ErrorCode.NOT_FOUND;
+        this.errorCode = NOT_FOUND;
         this.description = "Record not found for the provided ID.";
     }
 

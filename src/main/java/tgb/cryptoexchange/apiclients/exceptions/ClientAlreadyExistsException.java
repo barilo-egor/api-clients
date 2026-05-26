@@ -1,12 +1,14 @@
 package tgb.cryptoexchange.apiclients.exceptions;
 
+import com.google.rpc.Code;
 import lombok.Getter;
-import tgb.cryptoexchange.apiclients.enums.ErrorCode;
+
+import static com.google.rpc.Code.INVALID_ARGUMENT;
 
 @Getter
 public class ClientAlreadyExistsException extends RuntimeException implements CustomException{
 
-    private final ErrorCode errorCode;
+    private final Code errorCode;
 
     private final String field;
 
@@ -14,7 +16,7 @@ public class ClientAlreadyExistsException extends RuntimeException implements Cu
 
     public ClientAlreadyExistsException() {
         super("Bad request.");
-        this.errorCode = ErrorCode.INVALID_ARGUMENT;
+        this.errorCode = INVALID_ARGUMENT;
         this.field = "username";
         this.description = "Username is already taken.";
     }

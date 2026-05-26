@@ -1,12 +1,14 @@
 package tgb.cryptoexchange.apiclients.exceptions;
 
+import com.google.rpc.Code;
 import lombok.Getter;
-import tgb.cryptoexchange.apiclients.enums.ErrorCode;
+
+import static com.google.rpc.Code.INVALID_ARGUMENT;
 
 @Getter
 public class UnauthorizedException extends RuntimeException implements CustomException {
 
-    private final ErrorCode errorCode;
+    private final Code errorCode;
 
     private final String field;
 
@@ -14,7 +16,7 @@ public class UnauthorizedException extends RuntimeException implements CustomExc
 
     public UnauthorizedException(String message) {
         super(message);
-        this.errorCode = ErrorCode.AUTH_DATA_INVALID;
+        this.errorCode = INVALID_ARGUMENT;
         this.field = null;
         this.description = null;
     }
