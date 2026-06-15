@@ -80,9 +80,14 @@ message GetClientByApiKeyGrpc {
 }
 
 message GetClientByApiKeyResponseGrpc {
-  string username = 1;
-  string secret = 2;
-  string status = 3;
+  int64 id = 1;
+  string username = 2;
+  string secret = 3;
+  string api_key_preview = 4;
+  google.protobuf.Timestamp registered_at = 5;
+  string status = 6;
+  string callback_url = 7;
+  int32 order_timeout_seconds = 8;
 }
 
 message GetClientByIdGrpc {

@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tgb.cryptoexchange.apiclients.constants.Metrics;
-import tgb.cryptoexchange.apiclients.dto.ClientByApiKeyDTO;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
@@ -47,7 +46,7 @@ public class ClientService {
      * @param clientDTO данные для создания нового клиента
      * @return {@link ClientDTO} созданного клиента
      * @throws ClientAlreadyExistsException если клиент с таким username уже зарегистрирован
-     * @throws PasswordValidationException если пароль не прошел валидацию
+     * @throws PasswordValidationException  если пароль не прошел валидацию
      */
     @Timed(value = Metrics.CLIENT_CREATE, description = "Метрики запросов на создание client.")
     public ClientDTO create(ClientDTO clientDTO) {
@@ -70,12 +69,12 @@ public class ClientService {
      * а затем расшифровывает защищенный секрет клиента с помощью AES-GCM.
      *
      * @param apiKey открытый API-ключ клиента
-     * @return {@link ClientByApiKeyDTO} с данными клиента
+     * @return {@link ClientDTO} с данными клиента
      * @throws InvalidApiKeyException если передан пустой ключ или произошла ошибка его хэширования
-     * @throws UserNotFoundException если клиент с хэшем данного ключа не найден в системе
+     * @throws UserNotFoundException  если клиент с хэшем данного ключа не найден в системе
      */
     @Timed(value = Metrics.CLIENT_GET_BY_API_KEY, description = "Метрики запросов на получение client по apiKey.")
-    public ClientByApiKeyDTO getClientByApiKey(String apiKey) {
+    public ClientDTO getClientByApiKey(String apiKey) {
         log.debug("Запрос client: apiKey {}", apiKey);
         String hashedApiKey;
         try {
@@ -89,7 +88,7 @@ public class ClientService {
 
         Client client = clientRepository.findByApiKey(hashedApiKey)
                 .orElseThrow(UserNotFoundException::new);
-        log.debug("Найден client: id {}, apiKey {}, secret {}", client.getId(), client.getApiKey(), client.getSecret());
+        log.debug("Найден client: id {}, apiKey {}", client.getId(), client.getApiKey());
         String decryptedSecret = clientCredentialsService.decryptAesGcm(client.getSecret());
         return clientMapper.getClientByApiKeyDTO(client, decryptedSecret);
     }

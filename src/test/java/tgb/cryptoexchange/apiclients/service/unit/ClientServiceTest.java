@@ -1,11 +1,7 @@
 package tgb.cryptoexchange.apiclients.service.unit;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Optional;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -14,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import tgb.cryptoexchange.apiclients.dto.ClientByApiKeyDTO;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
@@ -22,8 +17,13 @@ import tgb.cryptoexchange.apiclients.enums.ClientStatus;
 import tgb.cryptoexchange.apiclients.exceptions.*;
 import tgb.cryptoexchange.apiclients.mapper.ClientMapper;
 import tgb.cryptoexchange.apiclients.repository.ClientRepository;
-import tgb.cryptoexchange.apiclients.service.ClientService;
 import tgb.cryptoexchange.apiclients.service.ClientCredentialsService;
+import tgb.cryptoexchange.apiclients.service.ClientService;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ClientServiceTest {
@@ -102,20 +102,20 @@ class ClientServiceTest {
         String rawApiKey = "raw_key";
         String hashedKey = "hashed_key";
         Client client = Client.builder().id(1L).apiKey(hashedKey).secret("encrypted_secret").build();
-        ClientByApiKeyDTO expectedDto = ClientByApiKeyDTO.builder().build();
+        ClientDTO expectedDto = ClientDTO.builder().build();
 
         when(clientCredentialsService.hashSha256(rawApiKey)).thenReturn(hashedKey);
         when(clientRepository.findByApiKey(hashedKey)).thenReturn(Optional.of(client));
         when(clientCredentialsService.decryptAesGcm("encrypted_secret")).thenReturn("decrypted_secret");
         when(clientMapper.getClientByApiKeyDTO(client, "decrypted_secret")).thenReturn(expectedDto);
 
-        ClientByApiKeyDTO result = clientService.getClientByApiKey(rawApiKey);
+        ClientDTO result = clientService.getClientByApiKey(rawApiKey);
 
         assertNotNull(result);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "   "})
+    @ValueSource(strings = { "", "   " })
     @DisplayName("Получение клиента по API-ключу падает, если ключ пустой или равен null")
     void should_throwInvalidApiKeyException_when_apiKeyIsNullOrEmpty(String invalidKey) {
         assertThrows(InvalidApiKeyException.class, () -> clientService.getClientByApiKey(invalidKey));
@@ -159,4 +159,5 @@ class ClientServiceTest {
 
         assertThrows(NotFoundException.class, () -> clientService.getClientByUsername(username));
     }
+
 }

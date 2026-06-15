@@ -51,7 +51,8 @@ public class JwtService {
                 .expiration(Date.from(now.plusSeconds(accessExpiration)))
                 .id(generator.generate().toString())
                 .claim("username", clientDTO.getUsername())
-                .claim("role", "client")
+                .claim("role", "CLIENT")
+                .claim("ordexp", clientDTO.getOrderTimeoutSeconds())
                 .signWith(getPrivateKey())
                 .compact();
     }

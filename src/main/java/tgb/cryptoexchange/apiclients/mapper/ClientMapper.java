@@ -2,7 +2,6 @@ package tgb.cryptoexchange.apiclients.mapper;
 
 import com.google.protobuf.Timestamp;
 import org.springframework.stereotype.Component;
-import tgb.cryptoexchange.apiclients.dto.ClientByApiKeyDTO;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.GeneratedKeys;
 import tgb.cryptoexchange.apiclients.entity.Client;
@@ -33,7 +32,7 @@ public class ClientMapper {
                 .build();
     }
 
-    public ClientDTO clientToDTO(Client client){
+    public ClientDTO clientToDTO(Client client) {
         return ClientDTO.builder()
                 .id(client.getId())
                 .username(client.getUsername())
@@ -61,19 +60,31 @@ public class ClientMapper {
                 .build();
     }
 
-    public ClientByApiKeyDTO getClientByApiKeyDTO(Client client, String decryptedSecret) {
-        return ClientByApiKeyDTO.builder()
+    public ClientDTO getClientByApiKeyDTO(Client client, String decryptedSecret) {
+        return ClientDTO.builder()
+                .id(client.getId())
                 .username(client.getUsername())
+                .password(client.getPassword())
+                .apiKey(client.getApiKey())
+                .apiKeyPreview(client.getApiKeyPreview())
                 .secret(decryptedSecret)
+                .registeredAt(client.getRegisteredAt())
                 .status(client.getStatus())
+                .callbackUrl(client.getCallbackUrl())
+                .orderTimeoutSeconds(client.getOrderTimeoutSeconds())
                 .build();
     }
 
-    public GetClientByApiKeyResponseGrpc getClientByApiKeyResponseGrpc(ClientByApiKeyDTO clientDTO) {
+    public GetClientByApiKeyResponseGrpc getClientByApiKeyResponseGrpc(ClientDTO clientDTO) {
         return GetClientByApiKeyResponseGrpc.newBuilder()
+                .setId(clientDTO.getId())
                 .setUsername(clientDTO.getUsername())
                 .setSecret(clientDTO.getSecret())
+                .setApiKeyPreview(clientDTO.getApiKeyPreview())
+                .setRegisteredAt(instantToTimestamp(clientDTO.getRegisteredAt()))
                 .setStatus(clientDTO.getStatus().name())
+                .setCallbackUrl(Objects.requireNonNullElse(clientDTO.getCallbackUrl(), ""))
+                .setOrderTimeoutSeconds(clientDTO.getOrderTimeoutSeconds())
                 .build();
     }
 
@@ -87,7 +98,8 @@ public class ClientMapper {
                         : Timestamp.getDefaultInstance())
                 .setStatus(clientDTO.getStatus() != null ? clientDTO.getStatus().name() : "")
                 .setCallbackUrl(Objects.requireNonNullElse(clientDTO.getCallbackUrl(), ""))
-                .setOrderTimeoutSeconds(clientDTO.getOrderTimeoutSeconds()!=null ? clientDTO.getOrderTimeoutSeconds() : 0)
+                .setOrderTimeoutSeconds(
+                        clientDTO.getOrderTimeoutSeconds() != null ? clientDTO.getOrderTimeoutSeconds() : 0)
                 .build();
     }
 
