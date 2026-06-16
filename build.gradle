@@ -119,3 +119,11 @@ tasks.withType(JavaCompile).configureEach {
 test {
     systemProperty "file.encoding", "UTF-8"
 }
+
+tasks.jar {
+    archiveFileName = "api-clients.jar"
+}
+
+bootJar {
+    archiveFileName = 'api-clients.jar'
+}
