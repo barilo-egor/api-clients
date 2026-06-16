@@ -74,7 +74,7 @@ class JwtServiceTest {
         assertDoesNotThrow(() -> UUID.fromString(claims.getId()));
 
         assertEquals("test_client", claims.get("username", String.class));
-        assertEquals("client", claims.get("role", String.class));
+        assertEquals("CLIENT", claims.get("role", String.class));
 
         Date expiration = claims.getExpiration();
         long diffInSeconds = (expiration.getTime() - new Date().getTime()) / 1000;
