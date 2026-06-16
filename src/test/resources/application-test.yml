@@ -12,8 +12,8 @@ spring:
 secrets:
   master-key: "1234567890123456"
   jwt:
-    private: "classpath:jwt-test.key"
-    public: "test-public-key-content"
+    private: "classpath:jwt-private.key"
+    public: "classpath:jwt-public.key"
     version: "jwt-version"
     ttl-seconds: "3000"
     refresh-ttl-seconds: "30000"

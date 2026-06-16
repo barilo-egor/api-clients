@@ -5,7 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
 import tgb.cryptoexchange.grpc.generated.SecurityServiceGrpc;
+
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -14,7 +19,7 @@ class SecurityServiceIT extends BaseIntegrationTest{
     private SecurityServiceGrpc.SecurityServiceBlockingStub blockingStub;
 
     @Value("${secrets.jwt.public}")
-    private String expectedPublicKey;
+    private Resource expectedPublicKeyResource;
 
     @BeforeEach
     void initStub() {
@@ -23,13 +28,16 @@ class SecurityServiceIT extends BaseIntegrationTest{
 
     @Test
     @DisplayName("Должен возвращать корректный ключ из конфига")
-    void getPublicKey_ShouldReturnConfiguredKey() {
-        var request = Empty.getDefaultInstance();
+    void getPublicKey_ShouldReturnConfiguredKey() throws Exception {
+        String expectedKeyContent = FileCopyUtils.copyToString(
+                new InputStreamReader(expectedPublicKeyResource.getInputStream(), StandardCharsets.UTF_8)
+        );
 
+        var request = Empty.getDefaultInstance();
         var response = blockingStub.getPublicKey(request);
 
         assertThat(response.getJwtKey()).isNotBlank();
-        assertThat(response.getJwtKey()).isEqualTo(expectedPublicKey);
+        assertThat(response.getJwtKey()).isEqualTo(expectedKeyContent);
     }
 
 }
