@@ -23,6 +23,8 @@ secrets:
     version:
     ttl-seconds:
     refresh-ttl-seconds:
+  kafka:
+    bootstrap-servers:
 kafka:
   topic:
     api-clients:
