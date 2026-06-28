@@ -2,11 +2,11 @@ package tgb.cryptoexchange.apiclients.service;
 
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
+import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import io.jsonwebtoken.Jwts;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.exceptions.BaseException;
 
@@ -24,12 +24,16 @@ public class JwtService {
 
     private final Long accessExpiration;
 
+    private final String jwtVersion;
+
     private final TimeBasedEpochGenerator generator = Generators.timeBasedEpochGenerator();
 
     public JwtService(@Value("${secrets.jwt.private}") Resource secret,
-            @Value("${secrets.jwt.ttl-seconds}") Long accessExpiration) {
+                      @Value("${secrets.jwt.ttl-seconds}") Long accessExpiration,
+                      @Value("${secrets.jwt.version}") String jwtVersion) {
         this.secret = secret;
         this.accessExpiration = accessExpiration;
+        this.jwtVersion = jwtVersion;
     }
 
     /**
@@ -44,7 +48,8 @@ public class JwtService {
         Instant now = Instant.now();
 
         return Jwts.builder()
-                .header().add("alg", "RS256").and()
+                .header()
+                .keyId(jwtVersion).and()
                 .subject(clientDTO.getId().toString())
                 .issuer("api-clients")
                 .issuedAt(Date.from(now))
