@@ -13,7 +13,6 @@ import tgb.cryptoexchange.apiclients.dto.AuthResponse;
 import tgb.cryptoexchange.apiclients.dto.ClientDTO;
 import tgb.cryptoexchange.apiclients.dto.TokenPair;
 import tgb.cryptoexchange.apiclients.exceptions.ClientAlreadyExistsException;
-import tgb.cryptoexchange.apiclients.exceptions.PasswordValidationException;
 import tgb.cryptoexchange.apiclients.exceptions.UnauthorizedException;
 import tgb.cryptoexchange.apiclients.service.AuthenticationManagerService;
 import tgb.cryptoexchange.apiclients.service.ClientService;
@@ -50,6 +49,14 @@ public class ClientController {
         return ResponseEntity.ok().body(savedClient);
     }
 
+    /**
+     * Аутентификация клиента и выдача токенов доступа.
+     *
+     * @param authRequest данные для входа (логин/пароль или refresh токен)
+     * @param response    HTTP-ответ для записи refresh токена в Cookie
+     * @return {@link ResponseEntity} с accessToken в теле ответа
+     * @throws UnauthorizedException если не переданы учетные данные
+     */
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
         if (authRequest == null || authRequest.username() == null || (authRequest.password() == null
